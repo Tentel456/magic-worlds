@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Админ‑панель • Magic Worlds</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/octoground.css" />
+  <style>
+    :root{ --accent:#16a34a; --accent-2:#22c55e; }
+    body{ background:#f7f7fb; }
+    .card-soft{ border:0; box-shadow:0 8px 28px rgba(15,23,42,.08); border-radius:16px; }
+    .kpi .value{ font-size:26px; font-weight:800; }
+    .kpi .icon{ width:40px;height:40px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;background:rgba(22,163,74,.12);color:var(--accent); }
+    .nav-tabs .nav-link{ border:0; color:#334155; }
+    .nav-tabs .nav-link.active{ color:#111827; font-weight:600; border-bottom:3px solid var(--accent); }
+    .btn-primary{ background:var(--accent); border-color:var(--accent); }
+    .btn-outline-primary{ border-color:var(--accent); color:var(--accent); }
+    .btn-outline-primary:hover{ background:var(--accent); color:#fff; }
+    .badge{ border-radius:999px; }
+    .table> :not(caption)>*>*{ padding:.6rem .8rem; }
+    .list-group-item{ border:0; border-bottom:1px solid #eef2f7; }
+    .card-title{ font-weight:700; }
+    .header__inner{ border-bottom:1px solid #eef2f7; }
+    /* Inputs */
+    .form-control, .form-select { border-color:#e5e7eb; border-radius:12px; background:#fbfbfb; }
+    .form-control:focus, .form-select:focus { border-color: var(--accent-2); box-shadow: 0 0 0 .2rem rgba(34,197,94,.2); background:#fff; }
+    .input-group .form-control { border-left:0; }
+    /* Local admin-only cards (not homepage cards) */
+    .card-soft { transition: transform .2s ease, box-shadow .2s ease; }
+    .card-soft:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,.12) !important; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="header__logo">
+        <img src="./assets/images/logo.png" alt="logo" class="big_logo" />
+        <img src="./assets/images/mobile.png" alt="mobile logo" class="mobile_logo" />
+        <div class="header__brand">Путешествия</div>
+      </a>
+      <nav class="nav d-none d-xl-block">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="/" class="nav__link">На сайт</a></li>
+          <li class="nav__item"><a href="/profile" class="nav__link">Профиль</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="og_pw" style="padding-top:24px; padding-bottom:60px;">
+    <div class="container">
+      <h3 class="mb-3">Админ‑панель</h3>
+      <div id="guard" class="alert alert-danger d-none">Нет доступа. Войдите как администратор.</div>
+
+      <div id="adminApp" class="d-none">
+        <div class="row g-3 kpi">
+          <div class="col-md-3">
+            <div class="card card-soft p-3">
+              <div class="d-flex align-items-center gap-2"><div class="icon"><i class="bi bi-people"></i></div><div class="text-muted">Пользователи</div></div>
+              <div id="kUsers" class="value mt-1">—</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-soft p-3">
+              <div class="d-flex align-items-center gap-2"><div class="icon"><i class="bi bi-megaphone"></i></div><div class="text-muted">Объявления</div></div>
+              <div id="kAnns" class="value mt-1">—</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-soft p-3">
+              <div class="d-flex align-items-center gap-2"><div class="icon" style="background:rgba(34,197,94,.12);color:var(--accent-2)"><i class="bi bi-check2-circle"></i></div><div class="text-muted">Опубликовано</div></div>
+              <div id="kPub" class="value mt-1">—</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="card card-soft p-3">
+              <div class="d-flex align-items-center gap-2"><div class="icon" style="background:rgba(100,116,139,.12);color:#64748b"><i class="bi bi-journal-minus"></i></div><div class="text-muted">Черновики</div></div>
+              <div id="kDrf" class="value mt-1">—</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card card-soft p-3 mt-3">
+          <ul class="nav nav-tabs" id="admTabs" role="tablist">
+            <li class="nav-item" role="presentation"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tUsers" type="button">Пользователи</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tAnn" type="button">Объявления</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tArt" type="button">Статьи</button></li>
+            <li class="nav-item" role="presentation"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#tArtLib" type="button">Библиотека статей</button></li>
+          </ul>
+          <div class="tab-content mt-3">
+            <div class="tab-pane fade" id="tAnn">
+              <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                <select id="fltDraft" class="form-select form-select-sm" style="max-width:180px;">
+                  <option value="">Все</option>
+                  <option value="0">Опубликованные</option>
+                  <option value="1">Черновики</option>
+                </select>
+                <select id="fltCat" class="form-select form-select-sm" style="max-width:220px;"><option value="">Все категории</option></select>
+                <input id="fltAuthor" class="form-control" placeholder="Автор" style="max-width:180px;" />
+                <input id="fltQ" class="form-control" placeholder="Поиск..." style="max-width:220px;" />
+                <button id="fltApply" class="btn btn-outline-primary btn-sm"><i class="bi bi-search"></i> Фильтр</button>
+              </div>
+              <div id="allCards" class="row g-3"></div>
+              <div class="d-flex justify-content-between mt-2">
+                <button id="prevPage" class="btn btn-outline-secondary btn-sm">Назад</button>
+                <div class="small" id="pageInfo"></div>
+                <button id="nextPage" class="btn btn-outline-secondary btn-sm">Вперёд</button>
+              </div>
+            </div>
+            <div class="tab-pane fade show active" id="tUsers">
+              <div class="d-flex gap-2 mb-2">
+                <input id="uSearch" class="form-control" placeholder="Поиск по имени" style="max-width:280px;" />
+                <button id="uSearchBtn" class="btn btn-outline-secondary btn-sm">Искать</button>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-sm align-middle">
+                  <thead><tr><th>Аватар</th><th>Имя</th><th>Баланс</th><th>Статус</th><th>Действия</th></tr></thead>
+                  <tbody id="uTable"></tbody>
+                </table>
+              </div>
+              <div class="d-flex justify-content-between mt-2">
+                <button id="uPrev" class="btn btn-outline-secondary btn-sm">Назад</button>
+                <div class="small" id="uPageInfo"></div>
+                <button id="uNext" class="btn btn-outline-secondary btn-sm">Вперёд</button>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tArt">
+              <div class="d-flex gap-2 mb-2">
+                <input id="aQ" class="form-control" placeholder="Поиск по заголовку/тексту" style="max-width:320px;" />
+                <input id="aAuthor" class="form-control" placeholder="Автор" style="max-width:220px;" />
+                <button id="aApply" class="btn btn-outline-primary btn-sm">Искать</button>
+              </div>
+              <div id="aList" class="list-group"></div>
+              <div class="d-flex justify-content-between mt-2">
+                <button id="aPrev" class="btn btn-outline-secondary btn-sm">Назад</button>
+                <div class="small" id="aPageInfo"></div>
+                <button id="aNext" class="btn btn-outline-secondary btn-sm">Вперёд</button>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="tArtLib">
+              <div class="d-flex gap-2 mb-2">
+                <input id="adQ" class="form-control" placeholder="Поиск по заголовку/тексту" style="max-width:320px;" />
+                <input id="adAuthor" class="form-control" placeholder="Автор" style="max-width:220px;" />
+                <button id="adApply" class="btn btn-outline-primary btn-sm">Искать</button>
+              </div>
+              <div id="adList" class="list-group"></div>
+              <div class="d-flex justify-content-between mt-2">
+                <button id="adPrev" class="btn btn-outline-secondary btn-sm">Назад</button>
+                <div class="small" id="adPageInfo"></div>
+                <button id="adNext" class="btn btn-outline-secondary btn-sm">Вперёд</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    (async function(){
+      const me = await fetch('/api/auth/me', { credentials:'include' }).then(r=>r.json()).catch(()=>({}));
+      if (!me || !me.authenticated || !me.user || !me.user.is_admin){
+        document.getElementById('guard').classList.remove('d-none');
+        return;
+      }
+      document.getElementById('adminApp').classList.remove('d-none');
+
+      // KPIs
+      const s = await fetch('/api/admin/summary', { credentials:'include' }).then(r=>r.json()).catch(()=>({}));
+      if (s && s.ok){
+        document.getElementById('kUsers').textContent = s.users;
+        document.getElementById('kAnns').textContent = s.announcements;
+        document.getElementById('kPub').textContent = s.published;
+        document.getElementById('kDrf').textContent = s.drafts;
+      }
+
+      // All announcements
+      let page=1, per=20;
+      async function loadList(){
+        const draft = document.getElementById('fltDraft').value;
+        const cat = document.getElementById('fltCat').value;
+        const author = document.getElementById('fltAuthor').value.trim();
+        const qstr = document.getElementById('fltQ').value.trim();
+        const url = new URL('/api/admin/announcements', location.origin);
+        url.searchParams.set('page', page); url.searchParams.set('per', per);
+        if (draft!=='') url.searchParams.set('draft', draft);
+        if (cat!=='') url.searchParams.set('category_id', cat);
+        if (author) url.searchParams.set('author', author);
+        if (qstr) url.searchParams.set('q', qstr);
+        const r = await fetch(url, { credentials:'include' });
+        const j = await r.json();
+        const grid = document.getElementById('allCards'); grid.innerHTML = '';
+        (j.items||[]).forEach(a=>{
+          const img = a.first_image || './assets/images/Кв.png';
+          const price = (a.price && a.price>0) ? `₽ ${a.price.toLocaleString('ru-RU')}${a.is_per_month?'/м':''}` : '₽ —';
+          const timeStr = new Date(a.created_at).toLocaleString('ru-RU');
+          const photosCount = a.images_count || (a.first_image?1:0) || 0;
+          const areaLine = a.area ? `${a.rooms? (a.rooms===1?'1-к квартира': (a.rooms+'-к квартира')):'Студия'} ${a.area} кв/м` : (a.rooms? (a.rooms===1?'1-к квартира':'Студия') : '');
+          const col = document.createElement('div'); col.className='col-12 col-md-6 col-lg-4';
+          col.innerHTML = `
+            <div id="card__collection" class="item stage-item">
+            <div class="card">
+              <div class="card-header p-0">
+                <div class="top d-flex justify-content-between w-100">
+                  <span>${a.draft?'Черновик':'Платное'}</span>
+                  <div class="d-flex gap-2 align-items-center">
+                    <div class="photo">
+                      <img src="./assets/images/icons/camera.png" alt="" />
+                      <small>${photosCount}</small>
+                    </div>
+                    <button class="heart-btn">
+                      <i class="fa-regular fa-heart"></i>
+                    </button>
+                  </div>
+                </div>
+                <img src="${img}" alt="" class="w-100" />
+                <p>${price}</p>
+              </div>
+              <div class="card-body p-0">
+                <button class="social_media">
+                  <img src="./assets/images/icons/social_media/tgx.png" alt="" />
+                </button>
+                <div class="card__info p-3">
+                  <div class="title">${a.title}</div>
+                  <div class="location">
+                    <img class="me-1" src="./assets/images/icons/location.png" alt="" />${a.address||'—'}
+                  </div>
+                  <div class="area">${areaLine}</div>
+                </div>
+                <div class="card__footer d-flex px-3 justify-content-between align-items-center">
+                  <div class="time align-items-center d-flex">
+                    <img src="./assets/images/icons/clock.png" alt="" />
+                    <span>${timeStr}</span>
+                  </div>
+                  <div class="view align-items-center d-flex">
+                    <img src="./assets/images/icons/eye.png" alt="" />
+                    <span>${a.views||0}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            </div>`;
+          grid.appendChild(col);
+          // heart toggle effect
+          const hb = col.querySelector('.heart-btn');
+          if (hb) hb.addEventListener('click', (e)=>{ e.preventDefault(); hb.classList.toggle('active'); const i=hb.querySelector('i'); i.classList.toggle('fa-regular'); i.classList.toggle('fa-solid'); });
+        });
+        document.getElementById('pageInfo').textContent = `Стр. ${j.page} из ${Math.ceil((j.total||0)/(j.per||per))||1}`;
+      }
+      document.getElementById('fltDraft').addEventListener('change', ()=>{ page=1; loadList(); });
+      document.getElementById('fltApply').addEventListener('click', ()=>{ page=1; loadList(); });
+      // load categories
+      (async()=>{
+        const cats = await fetch('/api/admin/categories', { credentials:'include' }).then(r=>r.json()).catch(()=>({items:[]}));
+        const sel = document.getElementById('fltCat');
+        (cats.items||[]).forEach(c=>{ const o=document.createElement('option'); o.value=c.id; o.textContent=c.name; sel.appendChild(o); });
+      })();
+      document.getElementById('prevPage').addEventListener('click', ()=>{ page=Math.max(1,page-1); loadList(); });
+      document.getElementById('nextPage').addEventListener('click', ()=>{ page=page+1; loadList(); });
+      loadList();
+
+      // Users tab
+      let uPage=1, uPer=20, uQ='';
+      async function loadUsers(){
+        const url = new URL('/api/admin/users', location.origin);
+        url.searchParams.set('page', uPage); url.searchParams.set('per', uPer);
+        if (uQ) url.searchParams.set('q', uQ);
+        const r = await fetch(url, { credentials:'include' });
+        const j = await r.json();
+        const tbody = document.getElementById('uTable'); tbody.innerHTML='';
+        (j.items||[]).forEach(u=>{
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td><img src="${u.avatar_url||'./assets/images/user.png'}" style="width:28px;height:28px;border-radius:999px;object-fit:cover;"/></td>
+            <td>@${u.username}</td>
+            <td>${(Number(u.balance)||0).toFixed(2)}₽</td>
+            <td>${u.is_banned?'Забанен':'Активен'}</td>
+            <td class="d-flex gap-2">
+              <button class="btn btn-sm ${u.is_banned?'btn-success':'btn-outline-danger'} act-ban">${u.is_banned?'Разбанить':'Забанить'}</button>
+              <button class="btn btn-sm btn-outline-secondary act-add">+100₽</button>
+              <button class="btn btn-sm btn-outline-secondary act-sub">-100₽</button>
+              <div class="input-group input-group-sm" style="max-width:140px;">
+                <input type="number" step="0.01" class="form-control amt" placeholder="сумма" />
+                <button class="btn btn-outline-success act-amt">OK</button>
+              </div>
+            </td>`;
+          tr.querySelector('.act-ban').addEventListener('click', async ()=>{
+            const ep = u.is_banned? `/api/admin/users/${u.id}/unban` : `/api/admin/users/${u.id}/ban`;
+            await fetch(ep, { method:'POST', credentials:'include' });
+            loadUsers();
+          });
+          tr.querySelector('.act-add').addEventListener('click', async ()=>{
+            await fetch(`/api/admin/users/${u.id}/balance`, { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify({amount: 100}) });
+            loadUsers();
+          });
+          tr.querySelector('.act-sub').addEventListener('click', async ()=>{
+            await fetch(`/api/admin/users/${u.id}/balance`, { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify({amount: -100}) });
+            loadUsers();
+          });
+          tr.querySelector('.act-amt').addEventListener('click', async ()=>{
+            const val = parseFloat(tr.querySelector('.amt').value||'0');
+            if (!isNaN(val) && val !== 0){
+              await fetch(`/api/admin/users/${u.id}/balance`, { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify({amount: val}) });
+              loadUsers();
+            }
+          });
+          tbody.appendChild(tr);
+        });
+        document.getElementById('uPageInfo').textContent = `Стр. ${j.page} из ${Math.ceil((j.total||0)/(j.per||uPer))||1}`;
+      }
+      document.getElementById('uSearchBtn').addEventListener('click', ()=>{ uQ = document.getElementById('uSearch').value.trim(); uPage=1; loadUsers(); });
+      document.getElementById('uPrev').addEventListener('click', ()=>{ uPage=Math.max(1,uPage-1); loadUsers(); });
+      document.getElementById('uNext').addEventListener('click', ()=>{ uPage=uPage+1; loadUsers(); });
+
+      // Articles tabs
+      async function loadArticles(draft){
+        const q = (draft? document.getElementById('adQ'): document.getElementById('aQ')).value.trim();
+        const author = (draft? document.getElementById('adAuthor'): document.getElementById('aAuthor')).value.trim();
+        const pageKey = draft? 'adPage': 'aPage';
+        const perKey = draft? 'adPer': 'aPer';
+        window[pageKey] = window[pageKey] || 1; window[perKey] = window[perKey] || 20;
+        const url = new URL('/api/admin/articles', location.origin);
+        url.searchParams.set('page', window[pageKey]); url.searchParams.set('per', window[perKey]);
+        url.searchParams.set('draft', draft? '1':'0');
+        if (q) url.searchParams.set('q', q);
+        if (author) url.searchParams.set('author', author);
+        const r = await fetch(url, { credentials:'include' }); const j = await r.json();
+        const box = draft? document.getElementById('adList'): document.getElementById('aList'); box.innerHTML='';
+        const items = (j.items||[]);
+        if (items.length === 0 && !draft){
+          box.innerHTML = `
+            <div class="w-100 text-center py-5 text-muted">
+              <i class="fa-regular fa-newspaper" style="font-size:48px;color:#cbd5e1;"></i>
+              <div class="mt-2">У вас нет статей</div>
+              <a href="/admin/editor" class="btn btn-success mt-3"><i class="fa-solid fa-plus me-1"></i> Новая статья</a>
+            </div>`;
+        } else if (items.length === 0 && draft){
+          box.innerHTML = `
+            <div class="w-100 text-center py-5 text-muted">
+              <i class="fa-regular fa-folder-closed" style="font-size:48px;color:#cbd5e1;"></i>
+              <div class="mt-2">В библиотеке статей пусто</div>
+              <a href="/admin/editor" class="btn btn-success mt-3"><i class="fa-solid fa-plus me-1"></i> Новая статья</a>
+            </div>`;
+        } else {
+          items.forEach(it=>{
+            const el = document.createElement('a'); el.href = `/article?id=${it.id}`; el.className='list-group-item list-group-item-action';
+            el.textContent = `${it.title} • ${new Date(it.created_at).toLocaleString('ru-RU')}${it.draft?' (черновик)':''}`;
+            box.appendChild(el);
+          });
+        }
+        const info = draft? document.getElementById('adPageInfo'): document.getElementById('aPageInfo');
+        info.textContent = `Стр. ${j.page} из ${Math.ceil((j.total||0)/(j.per||window[perKey]))||1}`;
+      }
+      const btnUsers = document.querySelector('button[data-bs-target="#tUsers"]'); if (btnUsers) btnUsers.addEventListener('shown.bs.tab', loadUsers);
+      const btnArt = document.querySelector('button[data-bs-target="#tArt"]'); if (btnArt) btnArt.addEventListener('shown.bs.tab', ()=> loadArticles(0));
+      const btnArtLib = document.querySelector('button[data-bs-target="#tArtLib"]'); if (btnArtLib) btnArtLib.addEventListener('shown.bs.tab', ()=> loadArticles(1));
+      // Articles events
+      const aApply = document.getElementById('aApply'); if (aApply) aApply.addEventListener('click', ()=>{ window.aPage=1; loadArticles(0); });
+      const aPrev = document.getElementById('aPrev'); if (aPrev) aPrev.addEventListener('click', ()=>{ window.aPage=Math.max(1,(window.aPage||1)-1); loadArticles(0); });
+      const aNext = document.getElementById('aNext'); if (aNext) aNext.addEventListener('click', ()=>{ window.aPage=(window.aPage||1)+1; loadArticles(0); });
+      const adApply = document.getElementById('adApply'); if (adApply) adApply.addEventListener('click', ()=>{ window.adPage=1; loadArticles(1); });
+      const adPrev = document.getElementById('adPrev'); if (adPrev) adPrev.addEventListener('click', ()=>{ window.adPage=Math.max(1,(window.adPage||1)-1); loadArticles(1); });
+      const adNext = document.getElementById('adNext'); if (adNext) adNext.addEventListener('click', ()=>{ window.adPage=(window.adPage||1)+1; loadArticles(1); });
+    })();
+  </script>
+  <!-- Font Awesome for heart icon -->
+  <script src="https://kit.fontawesome.com/1f9ff78b58.js" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Регистрация</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <style>
+    body, html { height: 100%; margin: 0; }
+    .auth-wrap { height: 100vh; }
+    .auth-left { max-width: 560px; margin: 0 auto; }
+    .auth-hero { background: linear-gradient(135deg,#f7fbf9 0%, #e8f4ef 100%); }
+    .auth-illustration { background: radial-gradient(1200px 600px at 80% 10%, rgba(17,66,50,0.08), transparent), linear-gradient(135deg, #ffffff 0%, #f6f9f8 70%); }
+    .auth-illustration-inner { display:flex; flex-direction:column; width:100%; max-width: none; }
+    .banner-img { width:100%; height: calc(100vh - 160px); object-fit: cover; border-radius: 0; display:block; }
+    .auth-logo { height: 56px; }
+    .form-control { border-radius: 10px; padding: 12px 14px; }
+    .btn-auth { height: 46px; border-radius: 10px; }
+    .muted-link { color:#6c757d; text-decoration:none; }
+    .muted-link:hover { text-decoration:underline; }
+    .or-sep { display:flex; align-items:center; gap:12px; margin:12px 0; }
+    .or-sep::before, .or-sep::after { content:""; flex:1; height:1px; background:#e5e7eb; }
+    .social-btn { border-radius:10px; height:44px; }
+    .quote { color:#6b7280; font-size: 1.05rem; line-height: 1.55; }
+    .blockquote-footer { font-size: 0.85rem; }
+    @media (max-width: 991.98px) { .auth-illustration { display:none; } }
+    @media (max-width: 575.98px) { .auth-logo { height: 44px; } }
+  </style>
+  <script src="https://kit.fontawesome.com/1f9ff78b58.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="icon" href="./assets/images/logo.png" />
+  <meta name="color-scheme" content="light only">
+  <meta name="theme-color" content="#114232">
+  <meta name="description" content="Регистрация аккаунта">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style> body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif; } </style>
+</head>
+<body>
+  <div class="container-fluid auth-wrap">
+    <div class="row h-100 g-0">
+      <!-- Left: form -->
+      <div class="col-12 col-lg-6 d-flex flex-column justify-content-center auth-hero py-4 py-lg-0 h-100">
+        <div class="auth-left w-100 px-3 px-md-4">
+          <a href="/" class="d-inline-flex align-items-center mt-2 mb-4 text-decoration-none">
+            <img src="./assets/images/logo.png" class="auth-logo me-2" alt="logo" />
+          </a>
+          <h2 class="fw-bold" style="color:#111827;">Создадим аккаунт</h2>
+          <div class="mt-1 mb-4" style="color:#6b7280;">Уже есть аккаунт? <a href="/login" class="muted-link">Войдите →</a></div>
+
+          <div id="alert" class="alert alert-danger d-none" role="alert"></div>
+
+          <form id="registerForm" class="mt-2">
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="username" class="form-label">Логин</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="например, alex" required />
+              </div>
+              <div class="col-12">
+                <label for="password" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="минимум 6 символов" required />
+              </div>
+              <div class="col-12 d-grid">
+                <button class="btn btn-success btn-auth" type="submit">Зарегистрироваться</button>
+              </div>
+            </div>
+          </form>
+
+          <div class="or-sep"><span class="text-muted">или</span></div>
+          <div class="d-grid gap-2">
+            <button id="tgStartBtn" class="btn btn-outline-secondary social-btn" type="button">
+              <i class="fa-brands fa-telegram me-2"></i> Зарегистрироваться через Telegram
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: illustration -->
+      <div class="col-12 col-lg-6 d-none d-lg-flex align-items-stretch auth-illustration h-100 border-start border-1 border-secondary">
+        <div class="auth-illustration-inner px-0 py-0">
+          <img src="./assets/images/banners/banner.png" class="banner-img" alt="banner" style="margin:0;" />
+          <figure class="mb-0 mt-3 ps-3">
+            <blockquote class="blockquote quote">«Создавайте объявления и находите нужные сервисы быстрее с нашей площадкой.»</blockquote>
+            <figcaption class="blockquote-footer mt-2">Команда <cite title="Source Title">Magic Worlds</cite></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Telegram Code Modal -->
+  <div class="modal fade" id="tgModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Подтверждение в Telegram</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-2 text-muted">Мы отправили 6-значный код в ваш Telegram. Откройте бота по ссылке ниже, затем введите код.</div>
+          <div class="mb-3">
+            <a id="tgDeepLink" href="#" target="_blank" class="btn btn-outline-primary btn-sm"><i class="fa-brands fa-telegram me-1"></i> Открыть бота</a>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Код из Telegram</label>
+            <input type="text" class="form-control" id="tgCode" placeholder="123456" maxlength="6">
+          </div>
+          <div id="tgError" class="alert alert-danger d-none"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+          <button type="button" id="tgConfirmBtn" class="btn btn-success">Подтвердить</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const alertEl = document.getElementById('alert');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      alertEl.classList.add('d-none');
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          const map = {
+            missing_credentials: 'Заполните логин и пароль',
+            weak_credentials: 'Минимум: логин 3+ символа, пароль 6+ символов',
+            user_exists: 'Пользователь уже существует',
+          };
+          throw new Error(map[data.error] || 'Ошибка регистрации');
+        }
+        window.location.href = '/';
+      } catch (err) {
+        alertEl.textContent = err.message || 'Ошибка регистрации';
+        alertEl.classList.remove('d-none');
+      }
+    });
+  </script>
+  <script>
+    // Telegram registration flow
+    const tgModal = new bootstrap.Modal(document.getElementById('tgModal'));
+    let tgToken = null;
+    document.getElementById('tgStartBtn').addEventListener('click', async () => {
+      const err = document.getElementById('alert');
+      err.classList.add('d-none');
+      try {
+        const res = await fetch('/api/auth/telegram/init', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
+          body: JSON.stringify({})
+        });
+        const data = await res.json().catch(()=>({}));
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || 'Ошибка инициализации Telegram');
+        }
+        tgToken = data.token;
+        const link = data.deep_link || '#';
+        const a = document.getElementById('tgDeepLink');
+        a.href = link;
+        tgModal.show();
+      } catch(e) {
+        err.textContent = e.message || 'Ошибка инициализации Telegram';
+        err.classList.remove('d-none');
+      }
+    });
+    document.getElementById('tgConfirmBtn').addEventListener('click', async () => {
+      const code = document.getElementById('tgCode').value.trim();
+      const err = document.getElementById('tgError');
+      err.classList.add('d-none');
+      try {
+        const res = await fetch('/api/auth/telegram/complete', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' }, credentials: 'include',
+          body: JSON.stringify({ token: tgToken, code })
+        });
+        const data = await res.json().catch(()=>({}));
+        if (!res.ok || !data.ok) {
+          const map = { invalid_token: 'Ссылка устарела, начните заново', expired: 'Срок действия кода истёк', invalid_code: 'Неверный код', user_exists: 'Пользователь уже существует' };
+          throw new Error(map[data.error] || 'Ошибка подтверждения');
+        }
+        window.location.href = '/';
+      } catch(e) {
+        err.textContent = e.message || 'Ошибка подтверждения';
+        err.classList.remove('d-none');
+      }
+    });
+  </script>
+</body>
+</html>

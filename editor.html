@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editor • Magic Worlds</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <script src="https://kit.fontawesome.com/1f9ff78b58.js" crossorigin="anonymous"></script>
+  <style>
+    :root{ --accent:#16a34a; }
+    body{ background:#f7f7fb; }
+    .editor-shell{ display:grid; grid-template-columns: 1fr 340px; gap: 18px; }
+    @media (max-width: 992px){ .editor-shell{ grid-template-columns: 1fr; } }
+    .card-soft{ border:0; box-shadow:0 8px 28px rgba(15,23,42,.08); border-radius:16px; }
+    .form-control, .form-select { border-color:#e5e7eb; border-radius:12px; background:#fbfbfb; }
+    .form-control:focus, .form-select:focus { border-color: var(--accent); box-shadow: 0 0 0 .2rem rgba(22,163,74,.15); background:#fff; }
+    .ql-toolbar.ql-snow { border-radius: 12px 12px 0 0; }
+    .ql-container.ql-snow { border-radius: 0 0 12px 12px; min-height:420px; background:#fff; }
+    .btn-success{ background: var(--accent); border-color: var(--accent); }
+    .cover { position:relative; border:1px dashed #e5e7eb; border-radius:12px; background:#fff; overflow:hidden; }
+    .cover img{ width:100%; height: 180px; object-fit:cover; display:block; }
+    .cover .overlay{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.6); opacity:0; transition:.2s; }
+    .cover:hover .overlay{ opacity:1; }
+    .chip{ display:inline-flex; align-items:center; gap:6px; padding:4px 10px; border-radius:999px; background:#ecfdf5; color:#065f46; font-size:12px; margin:2px; }
+    .chip button{ border:0; background:transparent; color:#065f46; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner py-2">
+      <a href="/admin" class="btn btn-sm btn-outline-secondary"><i class="bi bi-arrow-left"></i> Назад</a>
+      <div class="ms-auto d-flex gap-2">
+        <button id="previewBtn" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Предпросмотр</button>
+        <button id="saveDraft" class="btn btn-outline-secondary"><i class="bi bi-save"></i> Сохранить черновик</button>
+        <button id="publish" class="btn btn-success"><i class="bi bi-upload"></i> Опубликовать</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container py-4">
+    <div class="editor-shell">
+      <div>
+        <div class="card card-soft p-3 p-lg-4">
+          <div class="mb-3">
+            <label class="form-label">Заголовок</label>
+            <input id="title" class="form-control form-control-lg" placeholder="Введите заголовок статьи" />
+          </div>
+          <div class="mb-2">
+            <label class="form-label">Содержимое</label>
+            <div id="toolbar">
+              <span class="ql-formats">
+                <select class="ql-header">
+                  <option selected></option>
+                  <option value="1"></option>
+                  <option value="2"></option>
+                </select>
+                <button class="ql-bold"></button>
+                <button class="ql-italic"></button>
+                <button class="ql-underline"></button>
+              </span>
+              <span class="ql-formats">
+                <button class="ql-list" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <button class="ql-blockquote"></button>
+              </span>
+              <span class="ql-formats">
+                <button class="ql-link"></button>
+                <button class="ql-image"></button>
+                <button class="ql-clean"></button>
+              </span>
+            </div>
+            <div id="editor"></div>
+          </div>
+          <div id="msg" class="small text-muted"></div>
+        </div>
+      </div>
+      <aside>
+        <div class="card card-soft p-3 mb-3">
+          <h6 class="mb-2">Категория</h6>
+          <input id="category" class="form-control" placeholder="Например: Жильё и недвижимость" />
+        </div>
+        <div class="card card-soft p-3 mb-3">
+          <h6 class="mb-2">Обложка</h6>
+          <div class="cover mb-2">
+            <img id="coverPreview" src="https://placehold.co/800x400?text=Cover" alt="" />
+            <div class="overlay"><button id="btnUploadCover" class="btn btn-sm btn-outline-success"><i class="bi bi-image"></i> Загрузить</button></div>
+          </div>
+          <input id="coverUrl" class="form-control" placeholder="или вставьте URL" />
+          <input id="fileCover" type="file" accept="image/*" class="d-none" />
+        </div>
+        <div class="card card-soft p-3 mb-3">
+          <h6 class="mb-2">Теги</h6>
+          <div id="tagsChips" class="mb-2"></div>
+          <input id="tagsInput" class="form-control" placeholder="Введите тег и Enter" />
+        </div>
+        <div class="card card-soft p-3">
+          <h6 class="mb-2">SEO</h6>
+          <div class="mb-2"><label class="form-label">SEO Title</label><input id="seoTitle" class="form-control" /></div>
+          <div class="mb-2"><label class="form-label">SEO Description</label><textarea id="seoDesc" class="form-control" rows="3"></textarea></div>
+          <div class="mb-2"><label class="form-label">OG Image URL</label><input id="ogImage" class="form-control" /></div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+  <script>
+    const qs = new URLSearchParams(location.search);
+    let articleId = qs.get('id') ? parseInt(qs.get('id'),10) : null;
+    const msg = document.getElementById('msg');
+    const quill = new Quill('#editor', { theme: 'snow', placeholder: 'Напишите текст статьи...', modules: { toolbar: { container: '#toolbar', handlers: { image: imageHandler } } } });
+
+    async function uploadFile(file){
+      const fd = new FormData(); fd.append('file', file);
+      const res = await fetch('/api/upload', { method:'POST', credentials:'include', body: fd });
+      const j = await res.json(); if (!j.ok) throw new Error('upload_failed'); return j.url;
+    }
+    function imageHandler(){
+      const input = document.createElement('input'); input.type='file'; input.accept='image/*';
+      input.onchange = async()=>{ if (!input.files || !input.files[0]) return; try{ const url = await uploadFile(input.files[0]); const range = quill.getSelection(true); quill.insertEmbed(range.index, 'image', url, Quill.sources.USER); quill.setSelection(range.index+1);}catch(e){ flash('Не удалось загрузить изображение', true);} };
+      input.click();
+    }
+
+    const titleEl = document.getElementById('title');
+    const coverInput = document.getElementById('fileCover');
+    const coverUrlEl = document.getElementById('coverUrl');
+    const coverPrev = document.getElementById('coverPreview');
+    const tagsInput = document.getElementById('tagsInput');
+    const tagsChips = document.getElementById('tagsChips');
+    const seoTitleEl = document.getElementById('seoTitle');
+    const seoDescEl = document.getElementById('seoDesc');
+    const ogImageEl = document.getElementById('ogImage');
+    const categoryEl = document.getElementById('category');
+
+    document.getElementById('btnUploadCover').addEventListener('click', ()=> coverInput.click());
+    coverInput.addEventListener('change', async ()=>{
+      if (!coverInput.files || !coverInput.files[0]) return;
+      try{ const url = await uploadFile(coverInput.files[0]); coverUrlEl.value = url; coverPrev.src = url; if (!ogImageEl.value) ogImageEl.value = url; markDirty(); }catch(e){ flash('Не удалось загрузить обложку', true); }
+    });
+    coverUrlEl.addEventListener('change', ()=>{ coverPrev.src = coverUrlEl.value || 'https://placehold.co/800x400?text=Cover'; markDirty(); });
+
+    let tags = [];
+    function renderTags(){ tagsChips.innerHTML=''; tags.forEach((t,i)=>{ const chip=document.createElement('span'); chip.className='chip'; chip.innerHTML=`${t} <button data-i="${i}"><i class="bi bi-x"></i></button>`; chip.querySelector('button').onclick = (e)=>{ const idx=parseInt(e.currentTarget.getAttribute('data-i'),10); tags.splice(idx,1); renderTags(); markDirty(); }; tagsChips.appendChild(chip); }); }
+    tagsInput.addEventListener('keydown', (e)=>{ if (e.key==='Enter' || e.key===','){ e.preventDefault(); const v = tagsInput.value.trim(); if (v){ tags.push(v); renderTags(); tagsInput.value=''; markDirty(); } } });
+
+    function getPayload(isDraft){
+      return {
+        title: titleEl.value.trim(),
+        content: quill.root.innerHTML,
+        is_draft: !!isDraft,
+        cover_url: coverUrlEl.value.trim() || null,
+        tags: tags,
+        seo_title: seoTitleEl.value.trim() || null,
+        seo_description: seoDescEl.value.trim() || null,
+        og_image_url: ogImageEl.value.trim() || null,
+        category: categoryEl.value.trim() || null,
+      };
+    }
+
+    function flash(text, error){ msg.textContent = text; msg.classList.toggle('text-danger', !!error); }
+
+    async function saveDraft(){ try{ await save(true); flash('Черновик сохранён'); }catch(e){ flash('Сбой при сохранении', true);} }
+    async function publish(){ try{ await save(false); flash('Статья опубликована'); setTimeout(()=> location.href='/admin', 600); }catch(e){ flash('Сбой публикации', true);} }
+
+    async function save(isDraft){
+      const payload = getPayload(isDraft);
+      if (articleId){
+        await fetch(`/api/admin/articles/${articleId}`, { method:'PUT', headers:{'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify(payload) });
+      } else {
+        const res = await fetch('/api/admin/articles', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify(payload) });
+        const j = await res.json(); if (!j.ok){ throw new Error('save_failed'); }
+        articleId = j.id; history.replaceState({}, '', `/admin/editor?id=${articleId}`);
+      }
+      saveLocal();
+    }
+
+    function saveLocal(){
+      const key = `editor_article_${articleId||'new'}`;
+      const data = getPayload(true); data.__ts = Date.now();
+      localStorage.setItem(key, JSON.stringify(data));
+    }
+    function loadLocal(){
+      const key = `editor_article_${articleId||'new'}`;
+      try{ const raw = localStorage.getItem(key); if (!raw) return; const d = JSON.parse(raw);
+        if (!articleId){
+          if (d.title) titleEl.value = d.title;
+          if (d.content) quill.root.innerHTML = d.content;
+          coverUrlEl.value = d.cover_url||''; coverPrev.src = d.cover_url||coverPrev.src;
+          tags = Array.isArray(d.tags)? d.tags: []; renderTags();
+          seoTitleEl.value = d.seo_title||''; seoDescEl.value = d.seo_description||''; ogImageEl.value = d.og_image_url||'';
+        }
+      }catch(_){ }
+    }
+
+    let dirty = false; let autosaveTimer=null; function markDirty(){ dirty=true; saveLocal(); if (autosaveTimer) clearTimeout(autosaveTimer); autosaveTimer=setTimeout(async()=>{ if (!dirty) return; try{ await save(true); dirty=false; }catch(_){ } }, 3000); }
+    quill.on('text-change', markDirty); titleEl.addEventListener('input', markDirty); coverUrlEl.addEventListener('input', markDirty); seoTitleEl.addEventListener('input', markDirty); seoDescEl.addEventListener('input', markDirty); ogImageEl.addEventListener('input', markDirty); categoryEl.addEventListener('input', markDirty);
+
+    async function loadById(id){
+      const r = await fetch(`/api/admin/articles/${id}`, { credentials:'include' }); const j = await r.json(); if (!j.ok) return;
+      const a = j.item;
+      titleEl.value = a.title||''; quill.root.innerHTML = a.content||'';
+      coverUrlEl.value = a.cover_url||''; if (a.cover_url) coverPrev.src = a.cover_url;
+      tags = Array.isArray(a.tags)? a.tags: []; renderTags();
+      seoTitleEl.value = a.seo_title||''; seoDescEl.value = a.seo_description||''; ogImageEl.value = a.og_image_url||'';
+      categoryEl.value = a.category||'';
+    }
+
+    document.getElementById('saveDraft').addEventListener('click', saveDraft);
+    document.getElementById('publish').addEventListener('click', publish);
+    document.getElementById('previewBtn').addEventListener('click', async ()=>{
+      try{
+        await save(true);
+        if (articleId){ window.open(`/article?id=${articleId}`, '_blank'); }
+      }catch(e){ flash('Не удалось открыть предпросмотр', true); }
+    });
+
+    // init
+    (async()=>{
+      loadLocal();
+      if (articleId){ await loadById(articleId); }
+    })();
+  </script>
+</body>
+</html>

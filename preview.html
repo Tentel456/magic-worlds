@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Предпросмотр объявления</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="" id="ogTitle" />
+  <meta property="og:description" content="" id="ogDesc" />
+  <meta property="og:image" content="" id="ogImage" />
+  <meta property="og:url" content="" id="ogUrl" />
+  <script>
+    // Pre-populate OG from sessionStorage (works for preview page only)
+    try {
+      const d = JSON.parse(sessionStorage.getItem('ad_preview')||'{}');
+      const title = d.title || 'Объявление';
+      const desc = (d.excerpt||'').slice(0,160);
+      const img = (Array.isArray(d.images)&&d.images[0])||'';
+      document.addEventListener('DOMContentLoaded', ()=>{
+        document.getElementById('ogTitle').setAttribute('content', title);
+        document.getElementById('ogDesc').setAttribute('content', desc);
+        if (img) document.getElementById('ogImage').setAttribute('content', img.startsWith('http')?img:location.origin+img);
+        document.getElementById('ogUrl').setAttribute('content', location.href);
+        const ld = {
+          '@context': 'https://schema.org',
+          '@type': 'Product',
+          name: title,
+          description: desc,
+          image: img ? [img] : [],
+          offers: {
+            '@type': 'Offer',
+            price: d.price||0,
+            priceCurrency: 'RUB',
+            availability: 'https://schema.org/InStock'
+          }
+        };
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(ld);
+        document.head.appendChild(script);
+      });
+    } catch {}
+  </script>
+  <script>window.SEO={siteName:'Magic Worlds', title:document.title||'Предпросмотр объявления', description:'Предпросмотр объявления', url:location.href, ogType:'article'};</script>
+  <script src="/assets/seo.js"></script>
+  <style>
+    body { background:#fafafa; }
+    .gallery-thumb { height:72px; object-fit:cover; border-radius:8px; cursor:pointer; }
+    .main-photo { width:100%; height:360px; object-fit:cover; border-radius:12px; }
+    .tag { background:#eef2ff; color:#4f46e5; padding:.25rem .5rem; border-radius:999px; font-size:.8rem; }
+    .card-soft { border:0; box-shadow: 0 8px 24px rgba(0,0,0,.06); border-radius:12px; }
+    .keys-img { position:fixed; right:24px; bottom:24px; width:120px; opacity:.9; }
+    .badge-soft { background:#f3f4f6; color:#6b7280; }
+    .comment { background:#eef2ff; border-radius:12px; padding:12px; }
+    .ad-card img { height:120px; object-fit:cover; border-radius:10px; }
+    .icon-btn { border:none; background:#fff; width:36px; height:36px; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,.08); display:flex; align-items:center; justify-content:center; color:#6b7280; }
+    .promo { background: linear-gradient(135deg,#6d28d9,#4f46e5); border-radius:16px; color:#fff; padding:18px; }
+    .promo .btn { background:#fff; color:#4f46e5; border:none; }
+    .badges .badge { margin-right:.35rem; }
+    @media (max-width: 991.98px){
+      .main-photo { height: 240px; }
+      .keys-img { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner"><a href="/" class="header__logo"><img src="./assets/images/logo.png" class="big_logo"><div class="header__brand">Путешествия</div></a></div>
+  </header>
+
+  <main class="og_pw" style="padding-top:24px; padding-bottom:60px;">
+    <div class="container">
+      <nav class="small mb-2">
+        <a href="/" class="text-decoration-none text-muted">Главная</a>
+        <span class="text-muted"> / </span>
+        <a href="/create" class="text-decoration-none">Подать объявление</a>
+        <span class="text-muted"> / </span>
+        <span class="text-muted">Предпросмотр</span>
+      </nav>
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="card card-soft p-3">
+            <div class="d-flex justify-content-between align-items-start">
+              <h4 id="pvTitle" class="mb-2 me-3"></h4>
+              <div class="d-flex gap-2">
+                <button class="icon-btn" title="Поделиться"><i class="bi bi-share"></i></button>
+                <button class="icon-btn" title="В избранное"><i class="bi bi-heart"></i></button>
+              </div>
+            </div>
+            <div class="row g-2">
+              <div class="col-12"><img id="pvMain" class="main-photo" src="" alt="main" /></div>
+              <div class="col-12">
+                <div id="pvThumbs" class="d-flex gap-2 flex-wrap"></div>
+              </div>
+            </div>
+            <div class="mt-3">
+              <div class="text-muted small" id="pvAddr"></div>
+              <div class="badges mt-2">
+                <span class="badge bg-primary">Премиум</span>
+                <span class="badge bg-success">Проверено</span>
+                <span class="badge bg-secondary">Свободно</span>
+              </div>
+              <div class="d-flex align-items-center gap-2 mt-2 flex-wrap" id="pvTags"></div>
+            </div>
+            <div class="mt-3"><h6 class="mb-1">Описание</h6><p id="pvDesc" class="mb-0"></p></div>
+          </div>
+
+          <div class="card card-soft p-3 mt-3">
+            <h6 class="mb-2">Комментарии</h6>
+            <div class="comment mb-2">
+              <div class="small text-muted">Михаил • 12.09.2025</div>
+              <div>Очень классное объявление! Цена адекватная.</div>
+            </div>
+            <div class="comment">
+              <div class="small text-muted">Анна • 13.09.2025</div>
+              <div>Добавьте, пожалуйста, больше фото кухни.</div>
+            </div>
+            <button class="btn btn-outline-secondary btn-sm mt-2" disabled>Оставить комментарий (в предпросмотре недоступно)</button>
+          </div>
+
+          <div class="card card-soft p-3 mt-3">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h6 class="mb-0">Другие объявления автора</h6>
+              <a class="small" href="#">Все объявления</a>
+            </div>
+            <div class="row g-3">
+              <div class="col-6 col-md-4">
+                <div class="ad-card">
+                  <img class="w-100" src="https://picsum.photos/seed/aa/400/240" alt="">
+                  <div class="small mt-1">35 000₽ • Студия</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="ad-card">
+                  <img class="w-100" src="https://picsum.photos/seed/bb/400/240" alt="">
+                  <div class="small mt-1">36 500₽ • 1-к квартира</div>
+                </div>
+              </div>
+              <div class="col-6 col-md-4">
+                <div class="ad-card">
+                  <img class="w-100" src="https://picsum.photos/seed/cc/400/240" alt="">
+                  <div class="small mt-1">49 000₽ • 2-к квартира</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="card card-soft p-3 mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="fs-4 fw-bold" id="pvPrice"></div>
+              <span class="badge bg-success" id="pvDeal">Предложение</span>
+            </div>
+            <div class="text-muted small" id="pvPeriod"></div>
+            <div class="d-grid gap-2 mt-3">
+              <button class="btn btn-success" id="publishBtn"><i class="bi bi-send"></i> Опубликовать</button>
+              <button class="btn btn-outline-secondary" id="draftBtn"><i class="bi bi-save"></i> Сохранить черновик</button>
+              <a class="btn btn-outline-dark" href="/create">Изменить</a>
+            </div>
+          </div>
+          <div class="card card-soft p-3 mb-3" id="authorCard">
+            <div class="d-flex align-items-center">
+              <img id="authorAvatar" class="rounded-circle" style="width:44px;height:44px;object-fit:cover;" alt="avatar" />
+              <div class="ms-2">
+                <div class="fw-semibold" id="authorName">Автор</div>
+                <div class="small text-muted"><span id="authorPresence">На сайте сегодня</span> • Рейтинг: <span id="authorRating">—</span></div>
+              </div>
+            </div>
+            <div class="small text-muted mt-2"><i class="bi bi-geo-alt"></i> <span id="authorCity">Россия</span></div>
+            <a class="btn btn-outline-primary btn-sm mt-2" href="#"><i class="bi bi-chat"></i> Написать</a>
+          </div>
+          <img class="keys-img" src="assets/key.png" alt="keys" />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Get data from sessionStorage
+    const data = JSON.parse(sessionStorage.getItem('ad_preview') || '{}');
+    function fmtPrice(p, perMonth){
+      if(!p) return '—';
+      return `${Number(p).toLocaleString('ru-RU')}₽${perMonth?' / месяц':''}`;
+    }
+    // Breadcrumbs
+    const catName = (data.category_id==='2'||data.category_id===2) ? 'Куплю‑продам' : 'Жильё и недвижимость';
+    // Title & top info
+    document.getElementById('pvTitle').textContent = data.title || 'Без названия';
+    document.getElementById('pvPrice').textContent = fmtPrice(data.price, data.is_per_month);
+    document.getElementById('pvDesc').textContent = (data.excerpt||'').trim();
+    document.getElementById('pvAddr').textContent = data.address || '';
+    document.getElementById('pvPeriod').textContent = data.period_days ? `Публикация на ${data.period_days} дней` : '';
+    document.getElementById('pvDeal').textContent = (data.deal_type==='buy'?'Куплю':data.deal_type==='sell'?'Продам':data.deal_type==='exchange'?'Обмен':'Предложение');
+
+    const imgs = Array.isArray(data.images) && data.images.length ? data.images : ['https://picsum.photos/seed/pv/800/480'];
+    const main = document.getElementById('pvMain');
+    main.src = imgs[0];
+    const thumbs = document.getElementById('pvThumbs');
+    imgs.forEach((u, i)=>{
+      const img = document.createElement('img');
+      img.src = u; img.className='gallery-thumb';
+      img.addEventListener('click', ()=> main.src = u);
+      thumbs.appendChild(img);
+    });
+
+    // Tags
+    const tags = [];
+    if (data.rooms) tags.push(`${data.rooms} к.`);
+    if (data.area) tags.push(`${data.area} м²`);
+    if (data.floor && data.floors_total) tags.push(`${data.floor}/${data.floors_total} эт.`);
+    if (data.subcategory) tags.push(data.subcategory);
+    const tbox = document.getElementById('pvTags');
+    // Add feature tags per mock
+    if ((data.category_id+'')!=='2') {
+      tags.push('Тип жилья: Студия');
+      if (data.lease_term) tags.push(`Срок: ${data.lease_term==='short'?'Краткосрочно':data.lease_term==='long'?'Долгосрочно':'Другое'}`);
+      tags.push('Балкон');
+      tags.push('Панорамные окна');
+    } else {
+      if (data.subcategory) tags.push(`Категория: ${data.subcategory}`);
+      if (data.district) tags.push(`Район: ${data.district}`);
+    }
+    tags.forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tbox.appendChild(s); });
+
+    // Favorite / Share active state
+    const favBtn = document.querySelector('.icon-btn .bi-heart')?.parentElement;
+    if (favBtn) favBtn.addEventListener('click', (e)=>{
+      const i = favBtn.querySelector('i');
+      i.classList.toggle('bi-heart');
+      i.classList.toggle('bi-heart-fill');
+      favBtn.classList.toggle('text-danger');
+    });
+
+    // Actions
+    async function submit(draft){
+      try{
+        const payload = Object.assign({}, data, { draft });
+        const res = await fetch('/api/me/announcements', { method:'POST', headers:{'Content-Type':'application/json'}, credentials:'include', body: JSON.stringify(payload) });
+        const j = await res.json();
+        if(!res.ok || !j.ok) throw new Error(j.error||'Ошибка');
+        window.location.href = '/profile';
+      }catch(e){
+        alert(e.message||'Ошибка');
+      }
+    }
+    document.getElementById('publishBtn').addEventListener('click', ()=> submit(false));
+    document.getElementById('draftBtn').addEventListener('click', ()=> submit(true));
+
+    // Load author info and other ads
+    (async function(){
+      try {
+        const meRes = await fetch('/api/auth/me', { credentials:'include' });
+        const me = await meRes.json();
+        if (me && me.authenticated && me.user) {
+          const u = me.user;
+          document.getElementById('authorName').textContent = u.username;
+          const av = document.getElementById('authorAvatar');
+          av.src = u.avatar_url || 'https://api.dicebear.com/7.x/initials/svg?seed=' + encodeURIComponent(u.username);
+          document.getElementById('authorRating').textContent = u.rating_count ? `${u.rating_avg} (${u.rating_count})` : 'нет оценок';
+        }
+      } catch {}
+      try {
+        const listRes = await fetch('/api/me/announcements', { credentials:'include' });
+        const lst = await listRes.json();
+        if (lst && lst.ok && Array.isArray(lst.items)) {
+          const cont = document.querySelector('.card.card-soft.p-3.mt-3 .row.g-3');
+          if (cont) {
+            cont.innerHTML = '';
+            lst.items.slice(0,6).forEach(it => {
+              const col = document.createElement('div'); col.className='col-6 col-md-4';
+              col.innerHTML = `
+                <div class="ad-card">
+                  <img class="w-100" src="${(data.images&&data.images[0])||'https://picsum.photos/seed/'+it.id+'/400/240'}" alt="">
+                  <div class="small mt-1">${(data.price||'—').toLocaleString? Number(data.price).toLocaleString('ru-RU')+'₽':''} • ${it.title}</div>
+                </div>`;
+              cont.appendChild(col);
+            });
+          }
+        }
+      } catch {}
+    })();
+  </script>
+</body>
+</html>

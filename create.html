@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Подать объявление</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/octoground.css" />
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
+  <link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+  <style>
+    .chip { border:1px solid #a3e635; color:#166534; background:#f0fdf4; padding:.35rem .75rem; border-radius:999px; cursor:pointer; }
+    .chip.active { background:#22c55e; border-color:#16a34a; color:#052e16; }
+    .photo-slot { border:2px dashed #d1d5db; border-radius:10px; height:110px; display:flex; align-items:center; justify-content:center; color:#9ca3af; background:#f9fafb; cursor:pointer; }
+    .photo-slot input { display:none; }
+    .toolbar .btn { border-color:#e5e7eb; }
+    #map { height: 360px; border-radius: 10px; }
+    .thumb { position:relative; }
+    .thumb img { width:100%; height:110px; object-fit:cover; border-radius:10px; }
+    .thumb .rm { position:absolute; top:6px; right:6px; background:#ef4444; color:#fff; border:none; border-radius:6px; padding:2px 6px; font-size:12px; }
+    /* Softer green buttons */
+    .btn-success {
+      background-color: #86efac; /* green-300 */
+      border-color: #86efac;
+      color: #065f46; /* deep teal text for contrast */
+    }
+    .btn-success:hover, .btn-success:focus {
+      background-color: #6ee7b7; /* green-300/200 mix */
+      border-color: #6ee7b7;
+      color: #064e3b;
+    }
+    .btn-outline-success {
+      color: #16a34a; /* green-600 */
+      border-color: #a7f3d0; /* green-200 */
+    }
+    .btn-outline-success:hover, .btn-outline-success:focus {
+      background-color: #d1fae5; /* green-100 */
+      border-color: #86efac;
+      color: #065f46;
+    }
+    .btn { border-radius: 10px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+    .btn i { margin-right: .4rem; }
+    /* Field aesthetics */
+    .form-label { color:#374151; font-weight:600; }
+    .form-control, .form-select {
+      border-radius: 10px;
+      border-color: #e5e7eb;
+      background-color: #fbfbfb;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #86efac;
+      box-shadow: 0 0 0 .2rem rgba(134,239,172,.25);
+      background-color: #ffffff;
+    }
+    .input-group-text { border-radius: 10px 0 0 10px; background:#f1f5f9; border-color:#e5e7eb; }
+    .input-group .form-control { border-left: 0; }
+    #adDesc.form-control { background:#fff; }
+    #adDesc.form-control:focus { box-shadow: 0 0 0 .2rem rgba(134,239,172,.25); }
+    /* Big square photo button */
+    .photo-big { width:150px; height:150px; border:2px dashed #d1d5db; border-radius:12px; background:#f3f4f6; color:#4b5563; display:flex; align-items:center; justify-content:center; cursor:pointer; }
+    .photo-big:hover { background:#eef2f7; }
+    .photo-big i { font-size: 36px; color:#4b5563; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="header__logo">
+        <img src="./assets/images/logo.png" alt="logo" class="big_logo" />
+        <img src="./assets/images/mobile.png" alt="mobile logo" class="mobile_logo" />
+        <div class="header__brand">Путешествия</div>
+      </a>
+      <nav class="nav d-none d-xl-block">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="/profile" class="nav__link">Кабинет</a></li>
+          <li class="nav__item"><a href="/login" class="nav__link">Войти</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="og_pw" style="padding-top:24px; padding-bottom:60px;">
+    <div class="container">
+      <div class="mb-3">
+        <a href="/" class="text-decoration-none text-muted small">Подать объявление</a>
+      </div>
+
+      <h4 class="mb-3" style="color:#6B7280;"><i class="fa-regular fa-square-plus me-2"></i>Подать новое объявление</h4>
+
+      <!-- Categories chips -->
+      <div class="d-flex flex-wrap gap-2 mb-3" id="chips">
+        <span class="chip active" data-cat="1">Жильё и недвижимость</span>
+        <span class="chip" data-cat="2">Куплю-продам</span>
+        <span class="chip" data-cat="3">Работа и бизнес</span>
+        <span class="chip" data-cat="4">Красота, здоровье</span>
+        <span class="chip" data-cat="5">Услуги</span>
+        <span class="chip" data-cat="6">Ремонт и обслуживание техники</span>
+        <span class="chip" data-cat="7">Для дома и семьи</span>
+      </div>
+
+      <div class="card shadow-sm border-0">
+        <div class="card-body">
+          <!-- Basic fields row -->
+          <div class="row g-3">
+            <div class="col-md-8">
+              <label class="form-label">Заголовок объявления</label>
+              <input type="text" id="adTitle" class="form-control" placeholder="Короткий понятный заголовок" />
+            </div>
+            <div class="col-md-4">
+              <label class="form-label">Категория</label>
+              <select id="adCategory" class="form-select">
+                <option value="">Без категории</option>
+                <option value="1">Общее</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic params -->
+          <div class="row g-3 mt-2" id="housingFields">
+            <div class="col-lg-6">
+              <label class="form-label">Период размещения</label>
+              <select id="periodDays" class="form-select">
+                <option value="7">7 дней</option>
+                <option value="14">14 дней</option>
+                <option value="30" selected>30 дней</option>
+                <option value="60">60 дней</option>
+              </select>
+            </div>
+            <div class="col-lg-6">
+              <label class="form-label">Срок сдачи</label>
+              <select id="leaseTerm" class="form-select">
+                <option value="short">Краткосрочно</option>
+                <option value="long">Долгосрочно</option>
+                <option value="other">Другое</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Комнаты</label>
+              <input type="number" min="0" step="1" id="rooms" class="form-control" placeholder="Напр. 2" />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Площадь (м²)</label>
+              <input type="number" min="0" step="0.1" id="area" class="form-control" placeholder="Напр. 50" />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Этаж</label>
+              <input type="number" min="0" step="1" id="floor" class="form-control" />
+            </div>
+            <div class="col-md-3">
+              <label class="form-label">Этажность</label>
+              <input type="number" min="0" step="1" id="floorsTotal" class="form-control" />
+            </div>
+          </div>
+
+          <div class="row g-3 mt-2 d-none" id="marketFields">
+            <div class="col-12">
+              <div class="text-muted small mb-1">Подкатегории</div>
+              <div class="d-flex flex-wrap gap-2" id="marketSubcats">
+                <span class="chip" data-subcat="electronics">Техника и электроника</span>
+                <span class="chip" data-subcat="fashion">Одежда и обувь</span>
+                <span class="chip" data-subcat="cosmetics">Косметика</span>
+                <span class="chip" data-subcat="home">Товары для дома</span>
+                <span class="chip" data-subcat="auto">Авто и мото</span>
+                <span class="chip" data-subcat="kids">Детские товары</span>
+                <span class="chip" data-subcat="sport">Спорт</span>
+                <span class="chip" data-subcat="food">Продукты</span>
+                <span class="chip" data-subcat="other">Другое</span>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="text-muted small mb-1">Тип сделки</div>
+              <div class="d-flex flex-wrap gap-2" id="dealType">
+                <span class="chip" data-deal="buy">Куплю</span>
+                <span class="chip" data-deal="sell">Продам</span>
+                <span class="chip" data-deal="exchange">Обмен</span>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <label class="form-label">Район</label>
+              <select id="district" class="form-select">
+                <option value="">Выберите район</option>
+                <option value="central">Центральный</option>
+                <option value="north">Северный</option>
+                <option value="south">Южный</option>
+                <option value="east">Восточный</option>
+                <option value="west">Западный</option>
+                <option value="other">Другой</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Common address/map for all categories -->
+          <div class="row g-3 mt-2">
+            <div class="col-12">
+              <label class="form-label">Адрес</label>
+              <input type="text" id="address" class="form-control" placeholder="Укажите адрес или выберите точку на карте" />
+              <input type="hidden" id="lat" />
+              <input type="hidden" id="lng" />
+            </div>
+            <div class="col-12">
+              <div id="map" class="border"></div>
+            </div>
+          </div>
+
+          <!-- Rich text (simple toolbar imitation) -->
+          <div class="mt-3">
+            <label class="form-label">Описание</label>
+            <div class="toolbar mb-2">
+              <div class="btn-group btn-group-sm" role="group">
+                <button type="button" class="btn btn-outline-secondary" onclick="document.execCommand('bold')"><i class="fa-solid fa-bold"></i></button>
+                <button type="button" class="btn btn-outline-secondary" onclick="document.execCommand('italic')"><i class="fa-solid fa-italic"></i></button>
+                <button type="button" class="btn btn-outline-secondary" onclick="document.execCommand('insertUnorderedList')"><i class="fa-solid fa-list"></i></button>
+              </div>
+            </div>
+            <div id="adDesc" class="form-control" contenteditable="true" style="min-height:160px;"></div>
+          </div>
+
+          <!-- Photos -->
+          <div class="mt-3">
+            <label class="form-label mb-2">Фотографии</label>
+            <div class="d-flex flex-wrap gap-2 align-items-start">
+              <label class="photo-big mb-2" id="photoBig">
+                <i class="fa-solid fa-camera" aria-hidden="true"></i>
+                <input id="fileInput" type="file" accept="image/*" multiple hidden />
+              </label>
+              <div id="photos" class="row g-2 flex-grow-1" style="min-width:220px;"></div>
+            </div>
+          </div>
+
+          <!-- Price row -->
+          <div class="row g-3 mt-3 align-items-end">
+            <div class="col-sm-6 col-md-4">
+              <label class="form-label">Цена</label>
+              <div class="input-group">
+                <span class="input-group-text">₽</span>
+                <input type="number" class="form-control" id="adPrice" placeholder="Напр. 35000" />
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="perMonth">
+                <label class="form-check-label" for="perMonth">в месяц</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex gap-2 mt-4">
+            <button id="previewBtn" class="btn btn-outline-success"><i class="fa-regular fa-eye"></i>Предпросмотр</button>
+            <button id="draftBtn" class="btn btn-outline-secondary"><i class="fa-regular fa-floppy-disk"></i>Черновик</button>
+            <button id="publishBtn" class="btn btn-success"><i class="fa-solid fa-paper-plane"></i>Опубликовать</button>
+            <a href="/profile" class="btn btn-outline-dark"><i class="fa-regular fa-circle-xmark"></i>Отмена</a>
+          </div>
+
+          <div id="createError" class="alert alert-danger d-none mt-3"></div>
+          <div id="createOk" class="alert alert-success d-none mt-3"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3">
+          <div class="footer__help">
+            <h6>Нужна помощь?</h6>
+            <div class="phone"><small>Пресс служба</small><span>8 800 555 55 55</span></div>
+            <div class="email"><small>Почта для связи</small><span>info@eastnews.com</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="footer__text"><h6>Copyright 2021-2025 by Magic Worlds</h6></div>
+
+  <script src="https://kit.fontawesome.com/1f9ff78b58.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>window.SEO={siteName:'Magic Worlds', title:'Подать объявление', description:'Создайте объявление и опубликуйте его', url:location.href, ogType:'article'};</script>
+  <script src="/assets/seo.js"></script>
+  <script>
+    // chips -> category select sync
+    (function(){
+      const chips = document.querySelectorAll('#chips .chip');
+      chips.forEach(ch => ch.addEventListener('click', () => {
+        chips.forEach(c => c.classList.remove('active'));
+        ch.classList.add('active');
+        const cat = ch.getAttribute('data-cat');
+        document.getElementById('adCategory').value = cat || '';
+        const isMarket = (cat === '2');
+        document.getElementById('housingFields').classList.toggle('d-none', isMarket);
+        document.getElementById('marketFields').classList.toggle('d-none', !isMarket);
+      }));
+    })();
+
+    // market subcategory and deal type selection
+    let selectedSubcat = null; let selectedDeal = null;
+    function singleSelect(containerId, attr, cb) {
+      const els = document.querySelectorAll(`#${containerId} .chip`);
+      els.forEach(el => el.addEventListener('click', ()=>{
+        els.forEach(e=>e.classList.remove('active'));
+        el.classList.add('active');
+        cb(el.getAttribute(attr));
+      }));
+    }
+    singleSelect('marketSubcats', 'data-subcat', v => selectedSubcat = v);
+    singleSelect('dealType', 'data-deal', v => selectedDeal = v);
+
+    // Yandex Maps loader and map picker
+    (async function initYandexMap(){
+      try {
+        const cfg = await fetch('/api/config').then(r=>r.json()).catch(()=>({}));
+        const key = cfg.yandex_maps_api_key || '';
+        await new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = `https://api-maps.yandex.ru/2.1/?apikey=${encodeURIComponent(key)}&lang=ru_RU`;
+          s.onload = resolve; s.onerror = reject; document.head.appendChild(s);
+        });
+        window.ymaps.ready(() => {
+          const map = new ymaps.Map('map', { center: [55.751244, 37.618423], zoom: 12 });
+          let placemark = null;
+          function setPoint(lat, lng) {
+            if (!placemark) {
+              placemark = new ymaps.Placemark([lat, lng], {}, { draggable: true });
+              map.geoObjects.add(placemark);
+              placemark.events.add('dragend', () => {
+                const coords = placemark.geometry.getCoordinates();
+                setPoint(coords[0], coords[1]);
+              });
+            } else {
+              placemark.geometry.setCoordinates([lat, lng]);
+            }
+            document.getElementById('lat').value = lat;
+            document.getElementById('lng').value = lng;
+            ymaps.geocode([lat, lng]).then(function (res) {
+              const firstGeoObject = res.geoObjects.get(0);
+              const addr = firstGeoObject ? firstGeoObject.getAddressLine() : '';
+              if (addr) document.getElementById('address').value = addr;
+            });
+          }
+          map.events.add('click', function (e) {
+            const coords = e.get('coords');
+            setPoint(coords[0], coords[1]);
+          });
+        });
+      } catch (e) {
+        console.error('Yandex Maps failed to load', e);
+      }
+    })();
+
+    // Multi upload with preview and /api/upload
+    const photosEl = document.getElementById('photos');
+    const fileInput = document.getElementById('fileInput');
+    const uploaded = [];
+    fileInput.addEventListener('change', async (e) => {
+      const files = Array.from(e.target.files || []);
+      for (const f of files) {
+        const fd = new FormData(); fd.append('file', f);
+        try {
+          const res = await fetch('/api/upload', { method:'POST', credentials:'include', body: fd });
+          const data = await res.json().catch(()=>({}));
+          if (res.ok && data.ok && data.url) {
+            uploaded.push(data.url);
+            const col = document.createElement('div');
+            col.className = 'col-6 col-md-3 thumb';
+            col.innerHTML = `<img src="${data.url}" alt=""><button class="rm" type="button">×</button>`;
+            col.querySelector('.rm').addEventListener('click', ()=>{
+              const idx = uploaded.indexOf(data.url); if (idx>=0) uploaded.splice(idx,1);
+              col.remove();
+            });
+            photosEl.appendChild(col);
+          }
+        } catch(_) {}
+      }
+      fileInput.value = '';
+    });
+
+    // Preview modal (instantiate on demand)
+    document.getElementById('previewBtn').addEventListener('click', () => {
+      const title = document.getElementById('adTitle').value.trim() || 'Без названия';
+      const desc = document.getElementById('adDesc').innerText.trim();
+      const price = Number(document.getElementById('adPrice').value || 0);
+      const per = document.getElementById('perMonth').checked ? ' / месяц' : '';
+      const addr = document.getElementById('address').value.trim();
+      const cat = document.getElementById('adCategory').value;
+      const payload = {
+        title,
+        excerpt: desc,
+        price,
+        is_per_month: document.getElementById('perMonth').checked,
+        address: addr,
+        category_id: document.getElementById('adCategory').value || null,
+        period_days: document.getElementById('periodDays') ? document.getElementById('periodDays').value : null,
+        rooms: document.getElementById('rooms') ? document.getElementById('rooms').value : null,
+        area: document.getElementById('area') ? document.getElementById('area').value : null,
+        floor: document.getElementById('floor') ? document.getElementById('floor').value : null,
+        floors_total: document.getElementById('floorsTotal') ? document.getElementById('floorsTotal').value : null,
+        deal_type: (cat==='2') ? (selectedDeal||null) : null,
+        subcategory: (cat==='2') ? (selectedSubcat||null) : null,
+        lease_term: document.getElementById('leaseTerm') ? document.getElementById('leaseTerm').value : null,
+        district: (cat==='2') ? (document.getElementById('district').value || null) : null,
+        images: uploaded
+      };
+      sessionStorage.setItem('ad_preview', JSON.stringify(payload));
+      window.location.href = '/preview';
+    });
+
+    async function submitAnnouncement(draft=false) {
+      const title = document.getElementById('adTitle').value.trim();
+      const excerpt = document.getElementById('adDesc').innerText.trim();
+      const category_id = parseInt(document.getElementById('adCategory').value || '0') || null;
+      const price = Number(document.getElementById('adPrice').value || 0);
+      const is_per_month = !!document.getElementById('perMonth').checked;
+      const address = document.getElementById('address').value.trim();
+      const location_lat = document.getElementById('lat').value || null;
+      const location_lng = document.getElementById('lng').value || null;
+      const rooms = document.getElementById('rooms').value || null;
+      const area = document.getElementById('area').value || null;
+      const floor = document.getElementById('floor').value || null;
+      const floors_total = document.getElementById('floorsTotal').value || null;
+      const period_days = document.getElementById('periodDays').value || null;
+      const lease_term = document.getElementById('leaseTerm').value || null;
+      const images = uploaded.slice();
+      const cat = document.getElementById('adCategory').value;
+      const subcategory = (cat === '2') ? (selectedSubcat || null) : null;
+      const deal_type = (cat === '2') ? (selectedDeal || null) : null;
+      const district = (cat === '2') ? (document.getElementById('district').value || null) : null;
+      const err = document.getElementById('createError');
+      const ok = document.getElementById('createOk');
+      err.classList.add('d-none'); ok.classList.add('d-none');
+      try {
+        const res = await fetch('/api/me/announcements', {
+          method:'POST', headers:{'Content-Type':'application/json'}, credentials:'include',
+          body: JSON.stringify({ title, excerpt, category_id, price, is_per_month, address, location_lat, location_lng, rooms, area, floor, floors_total, period_days, lease_term, images, draft, subcategory, deal_type, district })
+        });
+        const data = await res.json().catch(()=>({}));
+        if (!res.ok || !data.ok) {
+          const map = { title_required: 'Укажите заголовок' };
+          throw new Error(map[data.error] || 'Ошибка создания');
+        }
+        ok.textContent = draft ? 'Черновик сохранён' : 'Объявление опубликовано';
+        ok.classList.remove('d-none');
+        setTimeout(()=> window.location.href = '/profile', 800);
+      } catch(e) {
+        err.textContent = e.message || 'Ошибка';
+        err.classList.remove('d-none');
+      }
+    }
+
+    document.getElementById('publishBtn').addEventListener('click', ()=> submitAnnouncement(false));
+    document.getElementById('draftBtn').addEventListener('click', ()=> submitAnnouncement(true));
+  </script>
+
+  <!-- Preview is a separate page at /preview -->
+</body>
+</html>
