@@ -1,0 +1,2208 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>Путешествия с Magic Worlds - Объявление</title>
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="./assets/favicon/image.png" />
+
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/1f9ff78b58.js" crossorigin="anonymous"></script>
+
+	<!-- Main CSS -->
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<link rel="stylesheet" href="assets/css/octoground.css" />
+	<link rel="stylesheet" href="assets/css/owl.carousel.min.css" />
+	<link rel="stylesheet" href="assets/css/owl.theme.default.min.css" />
+</head>
+<style>
+	/* Base responsive styles */
+	* {
+		box-sizing: border-box;
+	}
+
+	main {
+		max-width: 1167px;
+		width: 100%;
+		margin: auto;
+		padding: 0 15px;
+	}
+
+	.main_direction {
+		display: flex;
+		align-items: center;
+		gap: 13px;
+		margin-top: 15px;
+		flex-wrap: wrap;
+	}
+
+	.main_direction span {
+		font-size: 16px;
+		color: #828282;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.main_direction b {
+		font-size: 16px;
+		color: #114232;
+		font-weight: 500;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.main_direction i {
+		font-size: 16px;
+		color: #828282;
+	}
+
+	.main_house_detailes {
+		width: 100%;
+		margin-bottom: 60px;
+	}
+
+	.main_house_detailes .title {
+		width: 100%;
+		display: flex;
+		margin-bottom: 10px;
+		margin-top: 30px;
+		align-items: flex-start;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 15px;
+	}
+
+	.main_house_detailes .title .text h1 {
+		margin-bottom: 0;
+		margin-top: 0;
+		font-size: 36px;
+		color: #404040;
+		font-weight: bold;
+		font-family: "Roboto", sans-serif;
+		line-height: 1.2;
+	}
+
+	.main_house_detailes .title .actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 15px;
+	}
+
+	.main_house_detailes .title .actions .good,
+	.main_house_detailes .title .actions .bad {
+		transition: .3s;
+		cursor: pointer;
+		background-color: #f3f3f3;
+		border: 1px solid transparent;
+		width: 47px;
+		height: 26px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 10px;
+		color: #219653;
+	}
+
+	.main_house_detailes .title .actions .bad {
+		color: #eb5757;
+	}
+
+	.main_house_detailes .title .actions .heart {
+		font-size: 25px;
+		color: #114232;
+	}
+
+	.gallery {
+		display: flex;
+		gap: 18px;
+		flex-direction: row;
+	}
+
+
+	.viewer {
+		position: relative;
+		flex: 1;
+		min-height: 326px;
+		border-radius: 16px;
+		max-width: 510px;
+		width: 100%;
+		overflow: hidden;
+		background: #fff;
+		box-shadow: 0 10px 30px rgba(8, 30, 60, 0.12);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.viewer img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+/*
+	.arrow {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+		user-select: none;
+		background: rgba(0, 0, 0, 0.5);
+		z-index: 10;
+	}
+
+	.arrow i {
+		color: #ffff;
+		font-size: 20px;
+	}
+
+	.arrow.left {
+		left: 15px;
+	}
+
+	.arrow.right {
+		right: 15px;
+	}*/
+
+	.counter {
+		position: absolute;
+		bottom: 16px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 8px 12px;
+		border-radius: 20px;
+		font-weight: 500;
+		color: #fff;
+		font-family: "Montserrat", sans-serif;
+		font-size: 24px;
+		background: rgba(0, 0, 0, 0.5);
+	}
+
+	.top-badge {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		background-color: #f3f3f3;
+		width: 47px;
+		height: 26px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 5px;
+		font-family: "Montserrat", sans-serif;
+		color: #828282;
+		padding: 6px 8px;
+		font-size: 14px;
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		z-index: 10;
+	}
+
+	.inside {
+		display: flex;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+
+	.more_img {
+		max-width: 473px;
+		width: 100%;
+	}
+
+	.more_top {
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 10px;
+		margin-bottom: 15px;
+	}
+
+	.more_top .status {
+		background-color: #114232;
+		border-radius: 10px;
+		width: 80.14px;
+		height: 25px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.more_top .status span {
+		font-size: 14px;
+		color: #ffff;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.more_top .time,
+	.more_top .views,
+	.more_top .id {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.more_top .time span,
+	.more_top .views span,
+	.more_top .id span {
+		font-size: 14px;
+		color: #828282;
+		font-weight: 500;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.more_top .time i,
+	.more_top .views i {
+		color: #114232;
+		font-weight: 500;
+	}
+
+	.more_top .id b {
+		color: #114232;
+		font-size: 18px;
+		font-weight: bold;
+	}
+
+	.owner_info .img {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.more_owner {
+		margin-top: 35px;
+		display: flex;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+
+	.owner_info .img .name span {
+		font-size: 14px;
+		color: #404040;
+		font-weight: 500;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.owner_info .img .name .star {
+		display: flex;
+		align-items: center;
+	}
+
+	.owner_info .img .name .star i {
+		color: #114232;
+		font-size: 12px;
+	}
+
+	.owner_info .img .name .star p {
+		margin: 0;
+		font-family: "Montserrat", sans-serif;
+		color: #828282;
+		font-size: 14px;
+		margin-left: 10px;
+	}
+
+	.owner_info .list {
+		display: flex;
+		flex-direction: column;
+		margin-top: 33px;
+		gap: 10px;
+	}
+
+	.owner_info .list span {
+		font-size: 14px;
+		color: #828282;
+		font-weight: 500;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.owner_public {
+		display: flex;
+		flex-direction: column;
+		gap: 21px;
+	}
+
+	.owner_public .address {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.owner_public .address span {
+		font-size: 14px;
+		color: #404040;
+		font-weight: 500;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.owner_public .address i {
+		color: #114232;
+	}
+
+	.owner_public .media {
+		width: 100%;
+		justify-content: space-between;
+		display: flex;
+	}
+
+	.owner_public .media a {
+		width: 35px;
+		height: 35px;
+		border-radius: 50%;
+		border: 1px solid #114232;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.more_img .phone {
+		display: flex;
+		align-items: center;
+		margin-top: 44px;
+		justify-content: space-between;
+		flex-wrap: wrap;
+		gap: 20px;
+	}
+
+	.more_img .phone .number {
+		max-width: 260px;
+		width: 100%;
+		border: 1px solid #c4c4c4;
+		border-radius: 10px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 13px 10px;
+		flex-direction: column;
+	}
+
+	.more_img .phone .number h5 {
+		margin: 0;
+		font-size: 24px;
+		color: #114232;
+		font-weight: 500;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.more_img .phone .number a {
+		font-size: 14px;
+		color: #c4c4c4;
+		font-weight: 500;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.more_img .phone .price span {
+		font-size: 25px;
+		color: #404040;
+		font-weight: bold;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.flag__subtitle {
+		display: flex;
+		align-items: center;
+		justify-content: start;
+		margin-bottom: 10px;
+	}
+
+	.flag__subtitle p {
+		margin-top: 0;
+	}
+
+	#adupdate .subtext {
+		display: flex;
+		align-items: center;
+		/* justify-content: space-between; */
+		width: 100%;
+		margin-bottom: 20px;
+		flex-wrap: wrap;
+		column-gap: 40px;
+		padding-left: 10px;
+	}
+
+	/* #adupdate .subtext .subtext_street {
+		flex: 1 1 150px;
+	} */
+
+	#adupdate .subtext .subtext_street b {
+		font-size: 14px;
+		color: #114232;
+		font-weight: bold;
+		font-family: "Roboto", sans-serif;
+	}
+
+	#adupdate .subtext .subtext_street span {
+		font-size: 14px;
+		color: #828282;
+		font-weight: bold;
+		font-family: "Roboto", sans-serif;
+	}
+
+	.map_view {
+		margin-top: 60px;
+		margin-bottom: 60px;
+	}
+
+	#map {
+		width: 100%;
+		height: 290px;
+		border-radius: 10px;
+		overflow: hidden;
+	}
+
+	.key {
+		position: absolute;
+		right: 0;
+		top: 45%;
+		display: none;
+	}
+
+	.key img {
+		width: 200px;
+	}
+
+	.adupdate__text .more {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+		gap: 5px;
+		margin-top: 10px;
+		width: 100% !important;
+	}
+
+	/* Comments section */
+	#comment_carousel .adupdate__buttons {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 10px;
+	}
+
+	#comment_carousel .adupdate__buttons span {
+		font-family: "Montserrat", sans-serif;
+		font-size: 14px;
+		font-weight: 500;
+		margin-right: 15px;
+		color: #828282;
+	}
+
+	#comment_carousel .carousel_container {
+		overflow: hidden;
+		width: 100%;
+		max-width: 1167px;
+		margin: 10px auto;
+		border-radius: 8px;
+		padding: 20px 0px;
+	}
+
+	#comment_carousel .carousel_track {
+		display: flex;
+		transition: transform 0.4s ease;
+	}
+
+	#comment_carousel .carousel_item {
+		min-width: 100%;
+		padding: 20px;
+		border: 1px solid #c4c4c4;
+		border-radius: 10px;
+		position: relative;
+		font-size: 16px;
+		min-height: 112px;
+	}
+
+	#comment_carousel .carousel_item .comment_by {
+		position: absolute;
+		top: -20px;
+		left: 30px;
+		background-color: #ffff;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		justify-content: center;
+	}
+
+	#comment_carousel .carousel_item .comment_by .by_name {
+		display: flex;
+		align-items: start;
+		flex-direction: column;
+		justify-content: start;
+	}
+
+	#comment_carousel .carousel_item .comment_by .by_name .stars {
+		display: flex;
+		justify-content: start;
+		align-items: center;
+	}
+
+	#comment_carousel .carousel_item .comment_by .by_name span {
+		font-family: "Roboto", sans-serif;
+		color: #828282;
+		font-size: 14px;
+	}
+
+	#comment_carousel .carousel_item .comment_by .by_name .stars i {
+		font-size: 13px;
+		color: #114232;
+	}
+
+	#comment_carousel .carousel_item .comment_by .by_name .stars span {
+		font-family: "Roboto", sans-serif;
+		color: #828282;
+		font-size: 14px;
+		font-weight: 500;
+		margin-left: 10px;
+	}
+
+	.comment_text {
+		text-align: start !important;
+		font-family: "Roboto", sans-serif;
+		color: #828282;
+		font-size: 14px;
+	}
+
+	.comment_text a {
+		font-weight: bold;
+		color: #828282;
+	}
+
+	#put_comment .button {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	#put_comment .button button {
+		background-color: #114232;
+		max-width: 229px;
+		width: 100%;
+		height: 53px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 10px;
+		font-family: "Roboto", sans-serif;
+		color: #ffffff;
+		font-size: 14px;
+		font-weight: bold;
+		cursor: pointer;
+		border: none;
+	}
+
+	#put_comment .button button:hover {
+		background-color: #e5f9ef;
+		border: 1px solid #1c6b4c;
+		cursor: pointer;
+		color: #1c6b4c;
+	}
+
+	main .inside__button {
+		display: flex;
+		align-items: end;
+		justify-content: end;
+	}
+
+	main .banner__box .inside .inside__info {
+		width: 53%;
+	}
+
+	main .banner__box .inside .inside__info h1 {
+		white-space: nowrap;
+	}
+
+	main .banner__box .inside .inside__info h2 {
+		width: 66%;
+	}
+
+	.login_notice {
+		display: flex;
+		align-items: center;
+		background: #f5f5f5;
+		border-radius: 10px;
+		padding: 10px 15px;
+		margin-top: 20px;
+		margin-bottom: 60px;
+		font-size: 14px;
+		color: #555;
+		position: relative;
+		overflow: hidden;
+	}
+
+	.login_notice::before {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 8px;
+		height: 100%;
+		background: #0b463b;
+		border-top-left-radius: 10px;
+		border-bottom-left-radius: 10px;
+	}
+
+	.login_notice p {
+		margin: 0;
+		padding-left: 10px;
+		font-family: "Roboto", sans-serif;
+		font-size: 14px;
+		color: #828282;
+	}
+
+	.login_notice a {
+		font-family: "Roboto", sans-serif;
+		color: #114232;
+		font-weight: 600;
+		text-decoration: none;
+	}
+
+	.login_notice a:hover {
+		text-decoration: underline;
+	}
+
+	/* Category section */
+	.category__box {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		max-height: 90px;
+		overflow: hidden;
+		transition: max-height 0.3s ease;
+	}
+
+	.category__box.expanded {
+		max-height: 500px;
+	}
+
+	.category__box .item {
+		/* background: #f5f5f5; */
+		padding: 8px 15px;
+		border-radius: 20px;
+		font-size: 14px;
+		color: #404040;
+	}
+
+	.category__toggle {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		margin-top: 15px;
+		cursor: pointer;
+	}
+
+	/* Banner section */
+	#banner .banner__box {
+		background: #f9f9f9;
+		padding: 20px;
+		border-radius: 10px;
+		margin: 30px 0;
+	}
+
+	#banner .banner__box p {
+		color: #828282;
+		font-size: 14px;
+		/* margin-bottom: 15px; */
+	}
+
+	/* Responsive styles */
+	@media (max-width: 1024px) {
+		/* .inside {
+			flex-direction: column;
+		} */
+
+		.more_img {
+			max-width: 100%;
+		}
+
+		.key {
+			display: none;
+		}
+
+		.gallery {
+			flex-direction: column-reverse;
+		}
+
+		.viewer {
+			max-width: 100%;
+			min-height: 300px;
+		}
+	}
+
+	@media (max-width: 768px) {
+		.main_house_detailes .title .text h1 {
+			font-size: 28px;
+		}
+
+
+
+		.more_owner {
+			margin: 0;
+		}
+
+		.more_top {
+			display: none;
+			justify-content: flex-start;
+		}
+
+		.more_owner {
+			flex-direction: column;
+		}
+
+		.name {
+			width: max-content;
+		}
+
+		html body .more_owner {
+			display: grid;
+			grid-template-columns: auto auto;
+			flex-direction: column-reverse;
+			gap: 5px;
+		}
+
+		.owner_public .media {
+			justify-content: flex-start;
+			gap: 7px;
+		}
+
+		.more_img .phone {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.more_img .phone .number {
+			max-width: 100%;
+		}
+
+		#adupdate .subtext {
+			justify-content: flex-start;
+		}
+
+		#comment_carousel .adupdate__buttons {
+			justify-content: space-between;
+			width: 100%;
+		}
+
+		#comment_carousel .adupdate__buttons span {
+			margin-right: 0;
+		}
+
+		.carousel_item .comment_by {
+			position: static !important;
+			margin-bottom: 15px;
+		}
+
+		#banner .inside {
+			flex-direction: column;
+			text-align: center;
+		}
+
+		#banner .inside .inside__info {
+			width: 100%;
+		}
+
+		#banner .inside .inside__info h1,
+		#banner .inside .inside__info h2 {
+			white-space: normal;
+			width: 100%;
+		}
+	}
+
+	@media (max-width: 576px) {
+		.main_direction {
+			font-size: 14px;
+		}
+
+		.main_direction span,
+		.main_direction b,
+		.main_direction i {
+			font-size: 14px;
+		}
+
+		.main_house_detailes .title .text h1 {
+			font-size: 24px;
+		}
+
+		.viewer {
+			min-height: 250px;
+		}
+
+/*		.arrow {
+			width: 36px;
+			height: 36px;
+		}*/
+
+		.counter {
+			font-size: 18px;
+		}
+
+		.more_img .phone .price span {
+			font-size: 20px;
+		}
+
+		#comment_carousel .carousel_item {
+			padding: 15px;
+			min-height: auto;
+		}
+
+		.comment_text {
+			font-size: 13px;
+		}
+	}
+
+	@media (max-width: 480px) {
+		.main_house_detailes .title {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.main_house_detailes .title .actions {
+			align-self: flex-end;
+		}
+
+
+
+		.more_top .id {
+			width: 100%;
+			justify-content: flex-start;
+			margin-top: 10px;
+		}
+	}
+</style>
+
+<body>
+	<div class="preloader">
+		<div class="preloader-line" id="preloaderLine"></div>
+	</div>
+	<!-- Scroll to top button -->
+	<div id="pointer">
+		<button class="pointer_btn"><i class="fas fa-chevron-up"></i></button>
+	</div>
+
+	<!-- Header -->
+	<header class="header">
+		<div class="container header__inner">
+			<a href="index.html" class="header__logo">
+				<img src="./assets/images/logo.png" alt="logo" class="big_logo" />
+				<img src="./assets/images/mobile.png" alt="mobile logo" class="mobile_logo" />
+				<div class="header__brand">Путешествия</div>
+			</a>
+
+			<nav class="nav d-none d-xl-block">
+				<ul class="nav__list">
+					<li class="nav__item nav__item--has-dropdown">
+						<a href="#" class="nav__link">
+							<img src="./assets/images/icons/menu.png" alt="menu" />
+							<p>Категории товаров и услуг</p>
+							<img src="./assets/images/icons/arrow.png" alt="arrow" class="arrow" />
+						</a>
+						<div class="nav__dropdown">
+							<a href="#">Аренда жилья</a>
+							<a href="#">Волшебный Бали</a>
+							<a href="#">Мамочки-дети</a>
+							<a href="#">Экскурсии</a>
+							<a href="#">Афиша</a>
+							<a href="#">Обмен валюты</a>
+							<a href="#">Куплю-продам</a>
+							<a href="#">Аренда авто</a>
+							<a href="#">Услуги и работа</a>
+							<a href="#">Кафе и еда</a>
+						</div>
+					</li>
+
+					<li class="nav__item">
+						<a href="#" class="nav__link">
+							<img src="./assets/images/icons/question.png" alt="questions" />
+							<p>FAQ</p>
+						</a>
+					</li>
+
+					<li class="nav__item">
+						<a href="#" class="nav__link profile" onclick="return toggleProfileLinks(this)" style="display: none;">
+							<img src="./assets/images/user.png" alt="user" />
+							<div class="profile_info ms-1">
+								<h6>@alexandra_orl</h6>
+								<span>Баланс: 20,00₽</span>
+							</div>
+						</a>
+						<a href="#" class="nav__link profile" onclick="return toggleProfileLinks(this)">
+							<svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M7.5 8.75C9.22589 8.75 10.625 7.07107 10.625 5C10.625 2.92893 9.22589 1.25 7.5 1.25C5.77411 1.25 4.375 2.92893 4.375 5C4.375 7.07107 5.77411 8.75 7.5 8.75Z"
+									fill="#114232" />
+								<path
+									d="M13.6251 11.9367C13.0626 10.8117 12.0001 9.87423 10.6251 9.31173C10.2501 9.18673 9.81264 9.18673 9.50014 9.37423C8.87514 9.74923 8.25014 9.93673 7.50014 9.93673C6.75014 9.93673 6.12514 9.74923 5.50014 9.37423C5.18764 9.24923 4.75014 9.18673 4.37514 9.37423C3.00014 9.93673 1.93764 10.8742 1.37514 11.9992C0.937636 12.8117 1.62514 13.7492 2.56264 13.7492H12.4376C13.3751 13.7492 14.0626 12.8117 13.6251 11.9367Z"
+									fill="#114232" />
+							</svg>
+							<p style="margin: 0;">Войти</p>
+						</a>
+					</li>
+
+					<li class="nav__item">
+						<a href="#" class="nav__link btn">Подать объявление</a>
+					</li>
+				</ul>
+			</nav>
+
+			<!-- Mobile burger -->
+			<button class="burger d-xl-none" id="burgerBtn" aria-label="Open menu">
+				<span class="burger__bar"></span>
+				<span class="burger__bar"></span>
+				<span class="burger__bar"></span>
+			</button>
+		</div>
+	</header>
+
+	<!-- Mobile Navigation -->
+	<div class="mobile-nav d-xl-none" id="mobileNav">
+		<div class="mobile-nav__panel" role="dialog" aria-modal="true" aria-label="Mobile menu">
+			<!-- <button class="btn-icon mobile-nav__close" id="closeNav" aria-label="Close menu">
+				<i class="fas fa-times"></i>
+			</button> -->
+			<ul class="mobile-nav__list">
+				<!-- Категории (mobila uchun submenu qo'shildi) -->
+				<li class="mobile-nav__item mobile-has-submenu">
+					<button class="nav__link mobile-submenu-toggle" aria-expanded="false">
+						<img src="./assets/images/icons/menu.png" alt="menu" />
+						<p>Категории товаров и услуг</p>
+						<span class="mobile-submenu-arrow" aria-hidden="true">▸</span>
+					</button>
+
+					<div class="mobile-submenu" hidden>
+						<a href="#">Аренда жилья</a>
+						<a href="#">Волшебный Бали</a>
+						<a href="#">Мамочки-дети</a>
+						<a href="#">Экскурсии</a>
+						<a href="#">Афиша</a>
+						<a href="#">Обмен валюты</a>
+						<a href="#">Куплю-продам</a>
+						<a href="#">Аренда авто</a>
+						<a href="#">Услуги и работа</a>
+						<a href="#">Кафе и еда</a>
+					</div>
+				</li>
+
+				<li class="mobile-nav__item mobile-nav__item_border">
+					<a href="#" class="nav__link">
+						<img src="./assets/images/icons/question.png" alt="questions" />
+						<p>Вопросы-ответы</p>
+					</a>
+				</li>
+
+				<li class="mobile-nav__item mobile-nav__item_border">
+					<a href="#" class="nav__link profile">
+						<img src="./assets/images/user.png" alt="user" />
+						<div class="profile_info ms-1">
+							<h6>@alexandra_orl</h6>
+							<span>Баланс: 20,00₽</span>
+						</div>
+					</a>
+				</li>
+
+				<li class="mobile-nav__item">
+					<a href="#" class="nav__link btn">Подать объявление</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<!-- Header end -->
+	<!-- Main -->
+	<main>
+		<div class="main_direction">
+			<i class="fa-solid fa-house"></i>
+			<i class="fa-solid fa-angle-right"></i>
+			<span>Аренда жилья</span>
+			<i class="fa-solid fa-angle-right"></i>
+			<span>Сниму, новости, реклама</span>
+			<i class="fa-solid fa-angle-right"></i>
+			<b>Студия 35 кв/м ул.Пушкина 35, Хабаровск</b>
+		</div>
+
+		<div class="main_house_detailes">
+			<div class="title">
+				<div class="text">
+					<h1>Студия 35 кв/м ул.Пушкина 35, Хабаровск</h1>
+				</div>
+				<div class="actions flex">
+					<div class="flex mobile">
+						<div class="status">
+							<span>Платное</span>
+						</div>
+					</div>
+					<div class="flex" style="column-gap: 10px;">
+						<span class="good"><i class="fa-solid fa-thumbs-up"></i></span>
+						<span class="bad"><i class="fa-solid fa-thumbs-down"></i></span>
+						<label class="icon-toggle">
+							<input type="checkbox" class="toggle-input">
+							<svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"
+								class="icon-heart-filled">
+								<path
+									d="M22.1606 4.22612C20.9644 3.04387 19.3503 2.38086 17.6684 2.38086C15.9866 2.38086 14.3725 3.04387 13.1762 4.22612L12.5005 4.88628L11.8364 4.22612C10.6279 3.12194 9.0401 2.52632 7.40353 2.56322C5.76696 2.60012 4.20765 3.2667 3.05012 4.42422C1.89259 5.58175 1.22602 7.14106 1.18912 8.77763C1.15222 10.4142 1.74784 12.002 2.85202 13.2105L12.0864 22.4683C12.1968 22.5771 12.3455 22.6381 12.5005 22.6381C12.6554 22.6381 12.8042 22.5771 12.9145 22.4683L22.1606 13.2222C23.3464 12.0255 24.0117 10.4089 24.0117 8.72417C24.0117 7.03944 23.3464 5.42286 22.1606 4.22612Z"
+									fill="#114232" />
+							</svg>
+							<svg width="25" height="21" viewBox="0 0 25 21" fill="none" xmlns="http://www.w3.org/2000/svg" class="icon-heart">
+								<path
+									d="M12.1475 20.6622C11.8262 20.663 11.5078 20.6002 11.2108 20.4775C10.9138 20.3548 10.644 20.1746 10.4169 19.9472L2.04814 11.5785C1.38704 10.9102 0.865541 10.117 0.514018 9.24518C0.162496 8.37335 -0.0120183 7.44028 0.000642708 6.50033C0.00701248 5.63895 0.183259 4.78729 0.519287 3.99413C0.855316 3.20097 1.34452 2.4819 1.95889 1.8781C2.57325 1.2743 3.3007 0.797643 4.09957 0.475424C4.89844 0.153205 5.75303 -0.00824123 6.61439 0.000332234C7.49117 -0.0084995 8.3608 0.158831 9.17169 0.492401C9.98259 0.825971 10.7182 1.31899 11.335 1.94221L12.1475 2.75471L12.8138 2.08846C13.9642 0.907544 15.5036 0.183561 17.1469 0.0506052C18.7902 -0.082351 20.426 0.384728 21.7513 1.36533C22.5057 1.94631 23.1277 2.68135 23.5758 3.52151C24.0239 4.36167 24.2879 5.28767 24.3502 6.23783C24.4125 7.18799 24.2716 8.14052 23.9369 9.03198C23.6023 9.92344 23.0815 10.7334 22.4094 11.4078L13.8781 19.9472C13.651 20.1746 13.3812 20.3548 13.0842 20.4775C12.7872 20.6002 12.4689 20.663 12.1475 20.6622ZM6.58189 1.61721C5.29044 1.61589 4.04914 2.11707 3.12064 3.01471C2.64728 3.47015 2.27084 4.01656 2.01393 4.62113C1.75703 5.22569 1.62495 5.87595 1.62564 6.53283C1.61852 7.2554 1.7549 7.97219 2.02687 8.64166C2.29884 9.31113 2.70099 9.91995 3.21002 10.4328L11.5788 18.8016C11.6543 18.8777 11.7442 18.9382 11.8432 18.9794C11.9422 19.0207 12.0484 19.0419 12.1556 19.0419C12.2629 19.0419 12.3691 19.0207 12.4681 18.9794C12.5671 18.9382 12.657 18.8777 12.7325 18.8016L21.2719 10.2541C21.7731 9.74224 22.1604 9.13013 22.4083 8.45797C22.6561 7.78581 22.759 7.06881 22.71 6.35408C22.6666 5.63203 22.4677 4.92787 22.127 4.2898C21.7862 3.65174 21.3116 3.09484 20.7356 2.65721C19.725 1.91206 18.4779 1.55973 17.2268 1.66586C15.9756 1.77199 14.8057 2.32935 13.935 3.23408L12.7244 4.47721C12.6489 4.55336 12.559 4.61381 12.46 4.65506C12.361 4.69631 12.2548 4.71754 12.1475 4.71754C12.0403 4.71754 11.9341 4.69631 11.835 4.65506C11.736 4.61381 11.6462 4.55336 11.5706 4.47721L10.1894 3.09596C9.23804 2.15287 7.95397 1.62173 6.61439 1.61721H6.58189Z"
+									fill="#114232" />
+							</svg>
+						</label>
+					</div>
+					<div class="actions_bottom mobile">
+						<div>
+							<img src="./assets/images/icons/clock.png" alt="" />
+							<span>2 дня 5 часов</span>
+						</div>
+						<div>
+							<img src="./assets/images/icons/eye.png" alt="" />
+							<span>58</span>
+						</div>
+						<div>
+							<p>ID</p>
+							<span>58</span>
+						</div>
+					</div>
+				</div>
+				<div>
+
+				</div>
+			</div>
+
+			<div class="inside">
+
+
+
+
+
+
+
+
+
+
+				<div class="product-gallery">
+					<div class="gallery-container">
+
+						<!-- Thumbnails (вертикальные) -->
+						<div class="thumbs-wrapper">
+							<div class="thumbs-container">
+								<div class="thumb-item" data-index="0">
+									<img src="assets/images/scale_1200 1.png" alt="Thumb 1">
+								</div>
+								<div class="thumb-item" data-index="1">
+									<img src="assets/images/scale_1200 1.png" alt="Thumb 2">
+								</div>
+								<div class="thumb-item" data-index="2">
+									<img src="assets/images/scale_1200 1.png" alt="Thumb 3">
+								</div>
+							</div>
+						</div>
+
+
+						<!-- Основной слайдер -->
+						<div class="main-slider-wrapper">
+							<div class="main-slider owl-carousel">
+								<div class="main-item">
+									<img src="assets/images/scale_1200 1.png" alt="Product 1">
+								</div>
+								<div class="main-item">
+									<img src="assets/images/scale_1200 1.png" alt="Product 2">
+								</div>
+								<div class="main-item">
+									<img src="assets/images/scale_1200 1.png" alt="Product 3">
+								</div>
+							</div>
+							<!-- Добавляем счетчик слайдов -->
+							<div class="slider-counter">
+								<span class="current-slide">1</span> / <span class="total-slides">5</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+
+
+
+
+
+
+
+
+
+
+				<div class="more_img">
+					<div class="more_top">
+						<div class="status">
+							<span>Платное</span>
+						</div>
+
+						<div class="time">
+							<i class="fa-regular fa-clock"></i>
+							<span>2 дня 5 часов</span>
+						</div>
+
+						<div class="views">
+							<i class="fa-solid fa-eye"></i>
+							<span>58</span>
+						</div>
+
+						<div class="id">
+							<b>id</b>
+							<span>254565454</span>
+						</div>
+					</div>
+
+					<div class="more_owner">
+						<div class="owner_info">
+							<div class="img">
+								<img src="./assets/images/user.png" alt="" />
+								<div class="name">
+									<span>Александра Орлова</span>
+									<div class="star">
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-solid fa-star"></i>
+										<i class="fa-regular fa-star"></i>
+										<p>45</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="list">
+								<span>На сайте с 04.12.2019</span>
+								<span>Последний визит 30.01.2022</span>
+								<span>Размещено объявлений 7</span>
+							</div>
+						</div>
+						<div class="owner_public">
+							<div class="address">
+								<i class="fa-solid fa-location-dot"></i>
+								<span>Россия, Хабаровск</span>
+							</div>
+							<div class="address">
+								<i class="fa-solid fa-key"></i>
+								<span>Сдам в аренду студия</span>
+							</div>
+
+							<div class="media">
+								<a href="#"><img src="./assets/images/icons/vk.png" alt="" /></a>
+								<a href="#"><img src="./assets/images/icons/ok.png" alt="" /></a>
+								<a href="#"><img src="./assets/images/icons/tg.png" alt="" /></a>
+								<a href="#"><img src="./assets/images/icons/lnk.png" alt="" /></a>
+							</div>
+						</div>
+					</div>
+
+					<div class="phone">
+						<div class="number">
+							<h5 data-original="+7 926-756-22-22">+ 7 926-756-**-**</h5>
+							<a href="#" onclick="togglePhone(this)">Показать телефон</a>
+						</div>
+						<div class="price">
+							<span>₽ 35 000/м</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<section id="category">
+			<div class="category__box collapsible-content">
+				<div class="item">Автозапчтасти</div>
+				<div class="item">Диски и шины</div>
+				<div class="item">Газовые котлы</div>
+				<div class="item">Окна и двери</div>
+				<div class="item">Куртки мужские</div>
+				<div class="item">Детские и подростковые товары</div>
+				<div class="item">Куртки мужские</div>
+				<div class="item">Сантехника</div>
+				<div class="item">Радиаторы и обогреватели</div>
+				<div class="item">Постельное белье</div>
+				<div class="item">Товары для охоты</div>
+				<div class="item">Товары для офиса</div>
+				<div class="item">Компьютер</div>
+				<div class="item">Окна и двери</div>
+				<div class="item">Куртки мужские</div>
+				<div class="item">Окна и двери</div>
+				<div class="item">Репетиторы</div>
+				<div class="item">Iphone</div>
+				<div class="item">Детская одежда</div>
+				<div class="item">Уборка</div>
+				<div class="item">Вывоз мусора</div>
+				<div class="item">Сантехника</div>
+				<div class="item">Ремонт компьютеров</div>
+				<div class="item">Автозапчтасти</div>
+				<div class="item">Газовые котлы</div>
+				<div class="item">Уборка</div>
+			</div>
+
+			<!-- <div class="category__toggle toggle-btn"> -->
+			<div class="toggle-btn d-flex flex-column align-items-center justify-content-center mt-3">
+				<span class="mb-2">Развернуть</span>
+				<img src="./assets/images/icons/arrow.png" alt="arrow" class="toggle-icon" />
+			</div>
+		</section>
+
+		<!-- Ad_updates -->
+		<section id="adupdate" class="adupdate2">
+			<div class="adupdate__title">
+				<div class="flag__subtitle">
+					<img src="./assets/images/icons/flag.png" alt="" />
+					<p>Описание</p>
+				</div>
+			</div>
+			<div class="subtext">
+				<div class="subtext_street">
+					<b>Улица:</b>
+					<span>Пушкина</span>
+				</div>
+
+				<div class="subtext_street">
+					<b>Дом:</b>
+					<span>35</span>
+				</div>
+
+				<div class="subtext_street">
+					<b>Корпус:</b>
+					<span>-</span>
+				</div>
+
+				<div class="subtext_street">
+					<b>Подъезд:</b>
+					<span>2</span>
+				</div>
+
+				<div class="subtext_street">
+					<b>Этаж:</b>
+					<span>6</span>
+				</div>
+
+				<div class="subtext_street">
+					<b>Общая площадь:</b>
+					<span>35 м²</span>
+				</div>
+			</div>
+
+			<div class="adupdate__text">
+				<span class="collapsible-content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+					accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+					quae ab illo inventore veritatis et quasi architecto beatae vitae
+					dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+					aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+					eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+					qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit
+					Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+					accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+					quae ab illo inventore veritatis et quasi architecto beatae vitae
+					dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit
+					aspernatur aut odit aut fugit, sed quia consequuntur magni dolores
+					eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est,
+					qui dolorem ipsum quia dolor sit amet, consectetur, adipisci
+					velit</span>
+				<div class="toggle-btn d-flex flex-column align-items-center justify-content-center mt-3">
+					<span class="mb-2">Развернуть</span>
+					<img src="./assets/images/icons/arrow.png" alt="" />
+				</div>
+			</div>
+		</section>
+		<!-- Ad_updates End -->
+
+		<div class="map_view">
+			<div class="flag__subtitle">
+				<img src="./assets/images/icons/flag.png" alt="" />
+				<p>Объявление на карте</p>
+			</div>
+
+			<div class="map__screen">
+				<div id="map"></div>
+			</div>
+		</div>
+
+		<div class="key">
+			<img src="./assets/images/key.png" alt="" />
+		</div>
+
+		<!-- comment carousel -->
+		<section id="comment_carousel">
+			<div class="adupdate__title">
+				<div class="flag__subtitle">
+					<img src="./assets/images/icons/flag.png" alt="" />
+					<p>Комментарии</p>
+				</div>
+
+				<div class="adupdate__buttons">
+					<span>Всего найдено 5 комментариев</span>
+					<button class="button_left" style="margin-left: auto;">
+						<i class="fa-solid fa-chevron-left"></i>
+					</button>
+					<button class="button_right">
+						<i class="fa-solid fa-chevron-right"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="carousel_container">
+				<div class="carousel_track">
+					<div class="carousel_item">
+						<div class="comment_by">
+							<img src="./assets/images/user.png" alt="" />
+							<div class="by_name">
+								<span>Михаил 31.01.2022</span>
+								<div class="stars">
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star-half-stroke"></i>
+									<i class="fa-regular fa-star"></i>
+									<span>45</span>
+								</div>
+							</div>
+						</div>
+						<span class="comment_text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+							accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+							quae ab illo inventore veritatis et quasi architecto beatae
+							vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+							voluptas sit aspernatur aut odit aut fugit, sed quia
+							consequuntur magni dolores eos qui ratione voluptatem sequi
+							nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+							sit amet, consectetur, adipisci velit
+							<a href="#">Подробнее</a></span>
+					</div>
+
+					<div class="carousel_item">
+						<div class="comment_by">
+							<img src="./assets/images/user.png" alt="" />
+							<div class="by_name">
+								<span>Михаил 31.01.2022</span>
+								<div class="stars">
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star-half-stroke"></i>
+									<i class="fa-regular fa-star"></i>
+									<span>45</span>
+								</div>
+							</div>
+						</div>
+						<span class="comment_text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+							accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+							quae ab illo inventore veritatis et quasi architecto beatae
+							vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+							voluptas sit aspernatur aut odit aut fugit, sed quia
+							consequuntur magni dolores eos qui ratione voluptatem sequi
+							nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+							sit amet, consectetur, adipisci velit
+							<a href="#">Подробнее</a></span>
+					</div>
+
+					<div class="carousel_item">
+						<div class="comment_by">
+							<img src="./assets/images/user.png" alt="" />
+							<div class="by_name">
+								<span>Михаил 31.01.2022</span>
+								<div class="stars">
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star-half-stroke"></i>
+									<i class="fa-regular fa-star"></i>
+									<span>45</span>
+								</div>
+							</div>
+						</div>
+						<span class="comment_text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+							accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+							quae ab illo inventore veritatis et quasi architecto beatae
+							vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+							voluptas sit aspernatur aut odit aut fugit, sed quia
+							consequuntur magni dolores eos qui ratione voluptatem sequi
+							nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+							sit amet, consectetur, adipisci velit
+							<a href="#">Подробнее</a></span>
+					</div>
+
+					<div class="carousel_item">
+						<div class="comment_by">
+							<img src="./assets/images/user.png" alt="" />
+							<div class="by_name">
+								<span>Михаил 31.01.2022</span>
+								<div class="stars">
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star-half-stroke"></i>
+									<i class="fa-regular fa-star"></i>
+									<span>45</span>
+								</div>
+							</div>
+						</div>
+						<span class="comment_text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+							accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+							quae ab illo inventore veritatis et quasi architecto beatae
+							vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+							voluptas sit aspernatur aut odit aut fugit, sed quia
+							consequuntur magni dolores eos qui ratione voluptatem sequi
+							nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+							sit amet, consectetur, adipisci velit
+							<a href="#">Подробнее</a></span>
+					</div>
+
+					<div class="carousel_item">
+						<div class="comment_by">
+							<img src="./assets/images/user.png" alt="" />
+							<div class="by_name">
+								<span>Михаил 31.01.2022</span>
+								<div class="stars">
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star-half-stroke"></i>
+									<i class="fa-regular fa-star"></i>
+									<span>45</span>
+								</div>
+							</div>
+						</div>
+						<span class="comment_text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+							accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+							quae ab illo inventore veritatis et quasi architecto beatae
+							vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+							voluptas sit aspernatur aut odit aut fugit, sed quia
+							consequuntur magni dolores eos qui ratione voluptatem sequi
+							nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+							sit amet, consectetur, adipisci velit
+							<a href="#">Подробнее</a></span>
+					</div>
+
+					<div class="carousel_item">
+						<div class="comment_by">
+							<img src="./assets/images/user.png" alt="" />
+							<div class="by_name">
+								<span>Михаил 31.01.2022</span>
+								<div class="stars">
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star"></i>
+									<i class="fa-solid fa-star-half-stroke"></i>
+									<i class="fa-regular fa-star"></i>
+									<span>45</span>
+								</div>
+							</div>
+						</div>
+						<span class="comment_text">Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+							accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
+							quae ab illo inventore veritatis et quasi architecto beatae
+							vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia
+							voluptas sit aspernatur aut odit aut fugit, sed quia
+							consequuntur magni dolores eos qui ratione voluptatem sequi
+							nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor
+							sit amet, consectetur, adipisci velit
+							<a href="#">Подробнее</a></span>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- comment carousel end -->
+
+		<!-- put comment -->
+		<section id="put_comment">
+			<div class="button">
+				<button>Оставить комментарий</button>
+			</div>
+
+			<div class="login_notice">
+				<p>Вы должны <a href="#">войти</a>, чтобы написать комментарий</p>
+			</div>
+		</section>
+		<!-- put comment end -->
+	</main>
+	<!-- banner -->
+	<section id="banner">
+		<div class="banner__box">
+			<p>Реклама</p>
+			<div class="inside d-flex align-items-center justify-content-between w-100">
+				<div class="inside__info">
+					<h1>Как разместить новое объявление в каталоге</h1>
+					<h2>
+						Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+						officia deserunt mollit anim id est laborum
+					</h2>
+				</div>
+				<div class="inside__img">
+					<img src="./assets/images/banner.png" alt="" />
+				</div>
+				<div class="inside__button">
+					<button>Подробнее</button>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- banner end -->
+	<!-- Main end -->
+	<section id="adupdate" class="add_mobile">
+		<div class="adupdate__title og_pw">
+			<div class="d-flex flex-column">
+				<div class="flag__subtitle">
+					<div class="d-flex align-items-center">
+						<img src="./assets/images/icons/flag.png" alt="" />
+						<p>Другие объявления автора</p>
+					</div>
+				</div>
+				<small>Lorem ipsum dolor sit amet, consectetur adipiscing elit</small>
+			</div>
+
+			<div class="adupdate__buttons d-flex align-items-center adupdate__buttons-mobile">
+				<button class="button_all">Все</button>
+				<button class="button_left custom-nav-big" data-direction="prev">
+					<i class="fa-solid fa-chevron-left"></i>
+				</button>
+				<button class="button_right custom-nav-big" data-direction="next">
+					<i class="fa-solid fa-chevron-right"></i>
+				</button>
+			</div>
+		</div>
+	</section>
+	<div class="stage-padding-carousel">
+		<div id="" class="owl-carousel owl-carousel-big">
+
+
+
+
+
+
+
+
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="card__collection" class="item stage-item">
+				<div class="card">
+					<div class="card-header p-0">
+						<div class="top d-flex justify-content-between w-100">
+							<span>Платное</span>
+							<div class="d-flex gap-2 align-items-center">
+								<div class="photo">
+									<img src="./assets/images/icons/camera.png" alt="" />
+									<small>15</small>
+								</div>
+								<button class="heart-btn">
+									<i class="fa-regular fa-heart"></i>
+								</button>
+							</div>
+						</div>
+						<img src="./assets/images/Кв.png" alt="" class="w-100" />
+						<p>₽ 35 000/м</p>
+					</div>
+					<div class="card-body p-0">
+						<button class="social_media">
+							<img src="./assets/images/icons/social_media/vk.png" alt="" />
+						</button>
+
+						<div class="card__info p-3">
+							<div class="title">Сдам в аренду студия</div>
+							<div class="location">
+								<img class="me-1" src="./assets/images/icons/location.png" alt="" />Россия, Хабаровск
+							</div>
+							<div class="area">Студия 35 кв/м</div>
+						</div>
+
+						<div class="card__footer d-flex px-3 justify-content-between align-items-center">
+							<div class="time align-items-center d-flex">
+								<img src="./assets/images/icons/clock.png" alt="" />
+								<span>2 дня 5 часов</span>
+							</div>
+
+							<div class="view align-items-center d-flex">
+								<img src="./assets/images/icons/eye.png" alt="" />
+								<span>58</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		</div>
+	</div>
+	<!-- footer -->
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-3">
+					<div class="footer__help">
+						<h6>Нужна помощь?</h6>
+
+						<div class="phone">
+							<small>Пресс служба</small>
+							<span>8 800 555 55 55</span>
+						</div>
+
+						<div class="email">
+							<small>Почта для связи</small>
+							<span>info@eastnews.com</span>
+						</div>
+
+						<div class="public">
+							<small>Раскажите о нас</small>
+							<div class="public__icon">
+								<a href="#"><img src="./assets/images/icons/social_media/vk_icon.png" alt="" /></a>
+								<a href="#"><img src="./assets/images/icons/social_media/ok.png" alt="" /></a>
+								<a href="#"><img src="./assets/images/icons/social_media/facebook.png" alt="" /></a>
+								<a href="#"><img src="./assets/images/icons/social_media/youtube.png" alt="" /></a>
+								<a href="#"><img src="./assets/images/icons/social_media/twitter.png" alt="" /></a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="footer__menu">
+						<h6>Разделы</h6>
+						<div class="menu__list">
+							<a href="">Категории</a>
+							<a href="">Вопросы и ответы</a>
+							<a href="">Полезные советы</a>
+							<a href="">Рекомендации</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="footer__menu">
+						<h6>Ещё</h6>
+						<div class="menu__list">
+							<a href="">Мега-скидки</a>
+							<a href="">Что ищут</a>
+							<a href="">Агрегаторы</a>
+							<a href="">Статьи</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3">
+					<div class="footer__menu">
+						<h6>Кабинет</h6>
+						<div class="menu__list">
+							<a href="">Войти</a>
+							<a href="">Зарегестрироваться</a>
+							<a href="">Избранное</a>
+						</div>
+						<div class="footer__social d-flex">
+							<a href=""><img src="./assets/images/icons/social_media/appstore.png" alt="" /></a>
+							<a href=""><img src="./assets/images/icons/social_media/google.png" alt="" /></a>
+							<a href=""><img src="./assets/images/icons/social_media/rustore.png" alt="" /></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- footer End-->
+
+	<!-- end -->
+	<div class="footer__text">
+		<h6>Copyright © 2021-2025 by Magic Worlds</h6>
+	</div>
+	<!-- end end -->
+
+	<!-- Main JS -->
+	<script src="https://api-maps.yandex.ru/2.1/?lang=RU"></script>
+	<script>
+		ymaps.ready(init);
+		function init() {
+			var map = new ymaps.Map("map", {
+				center: [43.1198, 131.8835],
+				zoom: 16,
+			});
+			var placemark = new ymaps.Placemark([43.1198, 131.8835], {
+				balloonContent: "This is the place!",
+			});
+			map.geoObjects.add(placemark);
+		}
+		
+	</script>
+
+	
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			// ===== MULTI CAROUSEL SYSTEM (.carousel-container) =====
+			document
+				.querySelectorAll(".carousel-container")
+				.forEach((container) => {
+					const track = container.querySelector(".carousel-track");
+					const items = container.querySelectorAll(".item");
+					const prevBtn =
+						container.previousElementSibling?.querySelector(".button_left");
+					const nextBtn =
+						container.previousElementSibling?.querySelector(".button_right");
+
+					let index = 0;
+
+					function moveCarousel() {
+						const itemWidth = items[0].offsetWidth + 15; // card width + margin
+						track.style.transform = `translateX(-${index * itemWidth}px)`;
+					}
+
+					nextBtn?.addEventListener("click", () => {
+						if (index < items.length - 1) {
+							index++;
+							moveCarousel();
+						}
+					});
+
+					prevBtn?.addEventListener("click", () => {
+						if (index > 0) {
+							index--;
+							moveCarousel();
+						}
+					});
+				});
+
+			// ===== SINGLE CAROUSEL SYSTEM (.carousel_track) =====
+			const singleTrack = document.querySelector(".carousel_track");
+			const singleItems = document.querySelectorAll(".carousel_item");
+			const singlePrev = document.querySelector(".button_left");
+			const singleNext = document.querySelector(".button_right");
+
+			if (singleTrack && singleItems.length > 0) {
+				let index = 0;
+
+				function updateCarousel() {
+					singleTrack.style.transform = `translateX(-${index * 100}%)`;
+				}
+
+				singleNext?.addEventListener("click", () => {
+					if (index < singleItems.length - 1) {
+						index++;
+						updateCarousel();
+					}
+				});
+
+				singlePrev?.addEventListener("click", () => {
+					if (index > 0) {
+						index--;
+						updateCarousel();
+					}
+				});
+			}
+		});
+	</script>
+	<!-- Increment real views counter on page open -->
+	<script>
+		(function () {
+			try {
+				const params = new URLSearchParams(window.location.search);
+				const id = parseInt(params.get('id'), 10);
+				if (!id || Number.isNaN(id)) return;
+				const isFile = window.location.origin.startsWith('file');
+				const API_BASE = isFile ? 'http://127.0.0.1:5000' : '';
+				fetch(`${API_BASE}/api/announcements/${id}/view`, {
+					method: 'POST'
+				})
+					.then(r => r.ok ? r.json() : null)
+					.then(data => {
+						if (!data || typeof data.views === 'undefined') return;
+						const desktopViews = document.querySelector('.more_top .views span');
+						if (desktopViews) desktopViews.textContent = String(data.views);
+						const mobileViews = document.querySelector('.actions_bottom div:nth-child(2) span');
+						if (mobileViews) mobileViews.textContent = String(data.views);
+					})
+					.catch(() => { /* silent */ });
+			} catch (e) { /* silent */ }
+		})();
+	</script>
+	<!-- Main JS -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+		integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="assets/js/owl.carousel.min.js"></script>
+	<script src="assets/js/main.js"></script>
+	<script src="assets/js/octoground.js"></script>
+	<!-- Font Awesome -->
+	<script src="https://kit.fontawesome.com/1f9ff78b58.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

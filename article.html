@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Статья • Magic Worlds</title>
+  <link rel="icon" type="image/png" href="./assets/favicon/image.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+  <link rel="stylesheet" href="assets/css/octoground.css" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/1f9ff78b58.js" crossorigin="anonymous"></script>
+  <style>
+    body{ background:#f7f7fb; }
+    .page-wrap{ padding-top: 18px; padding-bottom: 60px; }
+    .hero{ border-radius: 12px; overflow: hidden; position: relative; box-shadow: 0 8px 28px rgba(15,23,42,.08);} 
+    .hero img{ width:100%; height: 280px; object-fit: cover; display:block; }
+    .ribbon{ position:absolute; top:16px; left:16px; background:#6d28d9; color:#fff; padding:6px 14px; border-radius:8px; font-size:13px; }
+    .article-card{ border-radius: 12px; border:0; box-shadow: 0 8px 28px rgba(15,23,42,.08); }
+    .article-title{ font-size: 22px; font-weight: 700; color:#111827; }
+    .article-content{ color:#334155; }
+    .tag{ display:inline-flex; padding:6px 12px; border-radius:999px; background:#eef2ff; color:#4338ca; font-size:13px; margin:4px 6px 0 0; }
+    .sidebar-card{ border-radius: 12px; border:0; box-shadow: 0 8px 28px rgba(15,23,42,.08); }
+    .comment{ border-radius:12px; background:#f3e8ff; padding:12px; color:#111827; }
+    .comment .meta{ font-size: 12px; color:#6b7280; }
+    .subscribe-banner{ border-radius:12px; overflow:hidden; }
+    @media (min-width: 992px){ .hero img{ height: 360px; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="header__logo">
+        <img src="./assets/images/logo.png" alt="logo" class="big_logo" />
+        <img src="./assets/images/mobile.png" alt="mobile logo" class="mobile_logo" />
+        <div class="header__brand">Путешествия</div>
+      </a>
+      <nav class="nav d-none d-xl-block">
+        <ul class="nav__list">
+          <li class="nav__item"><a href="/" class="nav__link">На главную</a></li>
+          <li class="nav__item"><a href="/profile" class="nav__link">Профиль</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container page-wrap">
+    <div class="row g-3 g-lg-4">
+      <div class="col-lg-8">
+        <div class="hero mb-3">
+          <img id="cover" src="https://placehold.co/1280x720?text=Cover" alt="cover" />
+          <div class="ribbon" id="ribbonCat">Жильё и недвижимость</div>
+        </div>
+
+        <div class="card article-card p-3 p-lg-4">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <div class="d-flex align-items-center gap-2">
+              <i class="bi bi-journal-text text-secondary"></i>
+              <span class="text-muted small" id="articleDate"></span>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+              <button class="btn btn-light btn-sm"><i class="fa-regular fa-bookmark"></i></button>
+              <button class="btn btn-light btn-sm"><i class="fa-regular fa-share-from-square"></i></button>
+            </div>
+          </div>
+          <h1 id="articleTitle" class="article-title mb-3">Заголовок статьи</h1>
+          <div id="articleContent" class="article-content"></div>
+
+          <div id="tagsWrap" class="mt-3"></div>
+        </div>
+
+        <div class="mt-3">
+          <h5 class="mb-2">Комментарии</h5>
+          <div class="comment mb-2">
+            <div class="meta mb-1"><i class="bi bi-person-circle"></i> Иван • <span>31.12.2022</span></div>
+            <div>Отличная статья! Спасибо за полезные советы.</div>
+          </div>
+          <div class="comment mb-2">
+            <div class="meta mb-1"><i class="bi bi-person-circle"></i> Мария • <span>31.12.2022</span></div>
+            <div>Было бы круто увидеть больше фото интерьеров.</div>
+          </div>
+          <button class="btn btn-outline-secondary btn-sm">Оставить комментарий</button>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="sidebar-card p-3 mb-3">
+          <h6 class="mb-3">Об авторе</h6>
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <img id="authorAvatar" src="./assets/images/user.png" style="width:48px;height:48px;border-radius:999px;object-fit:cover;"/>
+            <div>
+              <div id="authorName" class="fw-bold">Автор</div>
+              <a id="authorProfile" href="#" class="small">Профиль автора</a>
+            </div>
+          </div>
+          <div id="authorRating" class="small text-muted mb-2"></div>
+          <div id="authorMetrics" class="small text-muted"></div>
+        </div>
+        <div class="sidebar-card p-3 mb-3">
+          <h6 class="mb-2">Другие статьи автора</h6>
+          <div id="authorArticles" class="vstack gap-2"></div>
+        </div>
+        <div class="sidebar-card p-3">
+          <h6 class="mb-2">Реклама</h6>
+          <div class="text-muted small">Место для рекламного баннера.</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="subscribeWrap" class="subscribe-banner mt-4">
+      <div class="card article-card p-3 p-lg-4 d-flex flex-lg-row align-items-center" style="background:#fff;">
+        <div class="flex-grow-1">
+          <h5 class="mb-1">Подписаться на статьи автора</h5>
+          <div class="text-muted">Получайте уведомления о новых публикациях</div>
+        </div>
+        <div class="d-flex gap-2 mt-2 mt-lg-0">
+          <input id="subEmail" class="form-control" placeholder="Ваш e-mail" style="max-width:280px;" />
+          <button id="subBtn" class="btn btn-success">Подписаться</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mt-5">
+    <div class="footer__text"><h6>Copyright 2021-2025 by Magic Worlds</h6></div>
+  </footer>
+
+  <script>
+    function setMeta(name, selector, attrs){
+      let el = document.querySelector(selector); if (!el){ el=document.createElement('meta'); Object.entries(attrs).forEach(([k,v])=> el.setAttribute(k,v)); document.head.appendChild(el);} else { el.setAttribute('content', attrs.content); }
+      return el;
+    }
+    function updateSEO({title, description, image, url}){
+      document.title = title || document.title;
+      setMeta('og:type', 'meta[property="og:type"]', {property:'og:type', content:'article'});
+      setMeta('og:title', 'meta[property="og:title"]', {property:'og:title', content: title||''});
+      setMeta('og:description', 'meta[property="og:description"]', {property:'og:description', content: description||''});
+      setMeta('og:image', 'meta[property="og:image"]', {property:'og:image', content: image||'/assets/images/logo.png'});
+      setMeta('og:url', 'meta[property="og:url"]', {property:'og:url', content: url||location.href});
+      setMeta('twitter:card', 'meta[name="twitter:card"]', {name:'twitter:card', content:'summary_large_image'});
+      setMeta('twitter:title', 'meta[name="twitter:title"]', {name:'twitter:title', content:title||''});
+      setMeta('twitter:description', 'meta[name="twitter:description"]', {name:'twitter:description', content:description||''});
+      setMeta('twitter:image', 'meta[name="twitter:image"]', {name:'twitter:image', content:image||'/assets/images/logo.png'});
+    }
+
+    async function init(){
+      const id = new URLSearchParams(location.search).get('id');
+      if (!id){ return; }
+      const r = await fetch(`/api/articles/${id}`, { credentials:'include' });
+      const j = await r.json().catch(()=>({ok:false}));
+      if (!j || !j.ok){ return; }
+      const a = j.item;
+      const title = a.title || 'Статья';
+      document.getElementById('articleTitle').textContent = title;
+      const date = new Date(a.created_at); document.getElementById('articleDate').textContent = date.toLocaleString('ru-RU');
+      const cover = a.cover_url || a.og_image_url || 'https://placehold.co/1280x720?text=Cover';
+      document.getElementById('cover').src = cover;
+      document.getElementById('articleContent').innerHTML = a.content || '';
+      // Ribbon category from article.category or first tag
+      const ribbon = document.getElementById('ribbonCat');
+      const catText = (a.category && a.category.trim()) || ((a.tags||[])[0] || '');
+      if (catText){ ribbon.textContent = catText; ribbon.style.display='inline-block'; } else { ribbon.style.display='none'; }
+      const tagsWrap = document.getElementById('tagsWrap'); (a.tags||[]).forEach(t=>{ const s=document.createElement('span'); s.className='tag'; s.textContent=t; tagsWrap.appendChild(s); });
+      // Sidebar
+      if (a.author){
+        document.getElementById('authorName').textContent = '@'+a.author.username;
+        document.getElementById('authorAvatar').src = a.author.avatar_url || './assets/images/user.png';
+        document.getElementById('authorProfile').href = '/profile?user='+encodeURIComponent(a.author.username);
+        // rating & metrics
+        const ar = a.author_rating||{}; const am = a.author_metrics||{};
+        const avg = ar.avg ? Number(ar.avg).toFixed(1) : '—'; const cnt = ar.count||0;
+        document.getElementById('authorRating').innerHTML = `<i class="bi bi-star-fill text-warning"></i> Рейтинг: <b>${avg}</b> · <span>${cnt} оценок</span>`;
+        document.getElementById('authorMetrics').textContent = `Статей: ${am.articles||0} · Просмотры: ${(am.total_views||0).toLocaleString('ru-RU')}`;
+        // other articles
+        try{
+          const ra = await fetch(`/api/articles?author=${encodeURIComponent(a.author.username)}&limit=6`).then(x=>x.json());
+          const box = document.getElementById('authorArticles'); box.innerHTML='';
+          (ra.items||[]).filter(x=> x.id!==a.id).forEach(it=>{
+            const el = document.createElement('a'); el.href = `/article?id=${it.id}`; el.className='d-flex align-items-center gap-2 text-decoration-none';
+            el.innerHTML = `<img src="${it.cover_url||'https://placehold.co/120x80?text=Img'}" style="width:72px;height:48px;object-fit:cover;border-radius:8px;"/> <div class="small text-dark">${it.title}</div>`;
+            box.appendChild(el);
+          });
+        }catch(_){ }
+      }
+      // SEO
+      const plain = (a.content||'').replace(/<[^>]+>/g,' ').replace(/\s+/g,' ').trim();
+      updateSEO({
+        title: a.seo_title || title,
+        description: a.seo_description || plain.slice(0,180),
+        image: a.og_image_url || cover,
+        url: location.href
+      });
+      // Views increment for published only
+      if (!a.is_draft){ try{ await fetch(`/api/articles/${id}/view`, { method:'POST' }); }catch(_){ } }
+      // Comments and subscription only for published
+      const commentsWrap = document.createElement('div');
+      commentsWrap.id = 'commentsWrap';
+      const leftCol = document.querySelector('.col-lg-8');
+      leftCol.appendChild(commentsWrap);
+      if (!a.is_draft){
+        // Comments list
+        commentsWrap.innerHTML = `<h5 class="mb-2">Комментарии</h5><div id="commentsList" class="vstack gap-2 mb-2"></div>
+          <form id="commentForm" class="card article-card p-3">
+            <div class="row g-2">
+              <div class="col-md-4"><input id="cName" class="form-control" placeholder="Имя" /></div>
+              <div class="col-md-4"><input id="cEmail" type="email" class="form-control" placeholder="Email (необязательно)" /></div>
+              <div class="col-12"><textarea id="cContent" class="form-control" rows="3" placeholder="Ваш комментарий..."></textarea></div>
+              <div class="col-12 d-flex justify-content-end"><button id="cSend" class="btn btn-success">Отправить</button></div>
+            </div>
+          </form>`;
+        // Load comments
+        try{
+          const cr = await fetch(`/api/articles/${id}/comments`).then(x=>x.json());
+          const list = document.getElementById('commentsList');
+          (cr.items||[]).forEach(c=>{
+            const d = new Date(c.created_at);
+            const el = document.createElement('div');
+            el.className = 'comment';
+            el.innerHTML = `<div class="meta mb-1"><i class="bi bi-person-circle"></i> ${c.author_name} • <span>${d.toLocaleString('ru-RU')}</span></div><div>${c.content}</div>`;
+            list.appendChild(el);
+          });
+        }catch(_){ }
+        // Submit comment
+        const form = document.getElementById('commentForm');
+        form.addEventListener('submit', async (e)=>{
+          e.preventDefault();
+          const payload = { name: document.getElementById('cName').value.trim(), email: document.getElementById('cEmail').value.trim(), content: document.getElementById('cContent').value.trim() };
+          if (!payload.content){ return; }
+          const rr = await fetch(`/api/articles/${id}/comments`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) }).then(x=>x.json()).catch(()=>({ok:false}));
+          if (rr.ok){
+            const list = document.getElementById('commentsList');
+            const el = document.createElement('div'); el.className='comment';
+            el.innerHTML = `<div class="meta mb-1"><i class=\"bi bi-person-circle\"></i> ${payload.name||'Аноним'} • <span>${new Date().toLocaleString('ru-RU')}</span></div><div>${payload.content}</div>`;
+            list.appendChild(el);
+            form.reset();
+          }
+        });
+        // Subscribe
+        document.getElementById('subBtn').addEventListener('click', async ()=>{
+          const email = document.getElementById('subEmail').value.trim(); if (!email) return;
+          const rr = await fetch('/api/subscribe/author', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ email, author_id: a.author?.id }) }).then(x=>x.json()).catch(()=>({ok:false}));
+          if (rr.ok){
+            alert('Проверьте почту и подтвердите подписку' + (rr.confirm_url? `\n(для разработки: ${rr.confirm_url})` : ''));
+          }
+        });
+      } else {
+        // Hide subscription for drafts
+        const sw = document.getElementById('subscribeWrap'); if (sw) sw.style.display='none';
+      }
+    }
+    init();
+  </script>
+</body>
+</html>
